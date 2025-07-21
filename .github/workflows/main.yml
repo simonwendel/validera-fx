@@ -1,4 +1,7 @@
-﻿name: Build+Test .NET (main)
+﻿# SPDX-FileCopyrightText: 2025 Simon Wendel
+# SPDX-License-Identifier: CC0-1.0
+
+name: Build+Test .NET (main)
 
 on:
   push:
