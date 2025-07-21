@@ -1,0 +1,11 @@
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+obj/
+bin/
+project.assets.json
+.idea/*
+!.idea/.name

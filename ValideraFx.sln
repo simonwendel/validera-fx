@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core", "ValideraFx.Core\ValideraFx.Core.csproj", "{8A226FFA-3C98-4050-9FAB-445C8A6047AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core.Tests", "ValideraFx.Core.Tests\ValideraFx.Core.Tests.csproj", "{8C34BF9F-6F20-48C5-A00B-E5F36A559818}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A226FFA-3C98-4050-9FAB-445C8A6047AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A226FFA-3C98-4050-9FAB-445C8A6047AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A226FFA-3C98-4050-9FAB-445C8A6047AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A226FFA-3C98-4050-9FAB-445C8A6047AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
