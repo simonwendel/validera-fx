@@ -5,8 +5,8 @@ using System.Linq.Expressions;
 
 namespace ValideraFx.Core.Validators;
 
-internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> selector, IValidatorBase<TProp> validator)
-    : ValidatorBase<T>
+internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> selector, IValidator<TProp> validator)
+    : Validator<T>
     where T : notnull
     where TProp : notnull
 {

@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core.Validators;
 
-internal class IntegerIntervalValidator : ValidatorBase<int>
+internal class IntegerIntervalValidator : Validator<int>
 {
     private readonly int lowerBounds;
     private readonly int upperBounds;

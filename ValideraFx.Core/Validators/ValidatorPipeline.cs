@@ -3,11 +3,11 @@
 
 namespace ValideraFx.Core.Validators;
 
-internal abstract class ValidatorPipelineBase<T> : ValidatorBase<T> where T : notnull
+internal abstract class ValidatorPipeline<T> : Validator<T> where T : notnull
 {
-    private readonly ValidatorBase<T>[] validators;
+    private readonly Validator<T>[] validators;
 
-    private protected ValidatorPipelineBase(params ValidatorBase<T>[] validators)
+    private protected ValidatorPipeline(params Validator<T>[] validators)
     {
         if (validators.Length == 0)
         {
