@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core.Validators;
 
-internal abstract class Validator<T> : IValidator<T> where T : notnull
+public abstract class Validator<T> : IValidator<T> where T : notnull
 {
     public T Validate(UntrustedValue<T> untrustedValue)
         => Valid(untrustedValue.Value)

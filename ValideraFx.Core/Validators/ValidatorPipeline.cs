@@ -3,17 +3,17 @@
 
 namespace ValideraFx.Core.Validators;
 
-internal abstract class ValidatorPipeline<T> : Validator<T> where T : notnull
+public abstract class ValidatorPipeline<T> : Validator<T> where T : notnull
 {
     private readonly Validator<T>[] validators;
 
-    private protected ValidatorPipeline(params Validator<T>[] validators)
+    protected ValidatorPipeline(params Validator<T>[] validators)
     {
         if (validators.Length == 0)
         {
             throw new ArgumentException("A pipeline without validators is pretty useless.");
         }
-        
+
         this.validators = validators;
     }
 
