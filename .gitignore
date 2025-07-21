@@ -9,3 +9,4 @@ bin/
 project.assets.json
 .idea/*
 !.idea/.name
+!.idea/.name.license
