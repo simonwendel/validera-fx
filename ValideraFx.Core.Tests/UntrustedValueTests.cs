@@ -57,26 +57,14 @@ public class UntrustedValueTests
     // ReSharper disable once MemberCanBePrivate.Global
     internal class SuperSecretTestClass
     {
-        internal bool EqualsCalled { get; private set; }
-        internal bool EqualsResult { get; }
+        internal bool EqualsCalled { get; private set; } = false;
+        internal bool EqualsResult { get; } = true;
 
-        internal bool GetHashCodeCalled { get; private set; }
-        internal int GetHashCodeResult { get; }
+        internal bool GetHashCodeCalled { get; private set; } = false;
+        internal int GetHashCodeResult { get; } = 1337;
 
-        internal bool ToStringCalled { get; private set; }
-        private string ToStringValue { get; }
-
-        public SuperSecretTestClass()
-        {
-            EqualsCalled = false;
-            EqualsResult = true;
-
-            GetHashCodeCalled = false;
-            GetHashCodeResult = 1337;
-
-            ToStringCalled = false;
-            ToStringValue = "1337";
-        }
+        internal bool ToStringCalled { get; private set; } = false;
+        private string ToStringValue { get; } = "1337";
 
         public override bool Equals(object? obj)
         {
