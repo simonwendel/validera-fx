@@ -24,14 +24,9 @@ public class ObjectPropertyValidatorTests
         sut.Validate(new UntrustedValue<TestValue>(obj)).TestProperty.Should().Be(value);
     }
 
-    private class TestValue
+    private class TestValue(string testProperty)
     {
-        public TestValue(string testProperty)
-        {
-            TestProperty = testProperty;
-        }
-
-        public string TestProperty { get; }
+        public string TestProperty { get; } = testProperty;
     }
 
     private (ObjectPropertyValidator<TestValue, string>, TestValue) CreateSystemFor(string value)

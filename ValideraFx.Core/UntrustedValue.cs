@@ -3,14 +3,10 @@
 
 namespace ValideraFx.Core;
 
-public class UntrustedValue<T> where T : notnull
+public class UntrustedValue<T>(T value)
+    where T : notnull
 {
-    public UntrustedValue(T value)
-    {
-        Value = value;
-    }
-
-    internal T Value { get; }
+    internal T Value { get; } = value;
 
     public sealed override bool Equals(object? obj)
         => obj switch

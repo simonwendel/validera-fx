@@ -15,11 +15,5 @@ public class ValidatorPipelineBaseTests
         constructing.Should().Throw<ArgumentException>();
     }
 
-    private class TestPipeline : ValidatorPipelineBase<object>
-    {
-        public TestPipeline()
-            : base(Array.Empty<ValidatorBase<object>>())
-        {
-        }
-    }
+    private class TestPipeline() : ValidatorPipelineBase<object>(Array.Empty<ValidatorBase<object>>());
 }
