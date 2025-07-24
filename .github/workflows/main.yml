@@ -11,6 +11,6 @@ on:
 
 jobs:
   reuse-compliance-check:
-    uses: ./.github/workflows/modules/reuse-compliance.yml
+    uses: ./.github/workflows/reuse-compliance.yml
   build-then-test:
-    uses: ./.github/workflows/modules/build-then-test.yml
+    uses: ./.github/workflows/build-then-test.yml
