@@ -6,7 +6,7 @@ using ValideraFx.Core.Validators;
 
 namespace ValideraFx.Core.Tests.Validators;
 
-public class ValidatorPipelineTests
+public class PipelineTests
 {
     [Fact]
     internal void Ctor_GivenNoValidators_ThrowsException()
@@ -15,5 +15,5 @@ public class ValidatorPipelineTests
         constructing.Should().Throw<ArgumentException>();
     }
 
-    private class TestPipeline() : ValidatorPipeline<object>(Array.Empty<Validator<object>>());
+    private class TestPipeline() : Pipeline<object>(Array.Empty<Validator<object>>());
 }
