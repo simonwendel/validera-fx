@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core", "Validera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core.Tests", "ValideraFx.Core.Tests\ValideraFx.Core.Tests.csproj", "{8C34BF9F-6F20-48C5-A00B-E5F36A559818}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{068999AD-D770-4D93-920D-4BC706858295}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Examples.WebApi", "examples\ValideraFx.Examples.WebApi\ValideraFx.Examples.WebApi.csproj", "{6140CC2A-B888-481B-8BF1-0CBF6F0CE769}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web", "ValideraFx.Web\ValideraFx.Web.csproj", "{27DFE3D8-39F1-4923-A276-7A8B0D81B033}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web.Tests", "ValideraFx.Web.Tests\ValideraFx.Web.Tests.csproj", "{97713B57-70C2-46AD-AE22-2652EB1573DC}"
@@ -22,6 +26,10 @@ Global
 		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,5 +38,8 @@ Global
 		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769} = {068999AD-D770-4D93-920D-4BC706858295}
 	EndGlobalSection
 EndGlobal
