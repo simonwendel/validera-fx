@@ -15,7 +15,7 @@ var validatorBuilder = new ValidatorServiceBuilder();
 validatorBuilder.AddValidator(
     Validation.Of<CalculationOptions>()
         .Apply(x => x.First, Limit.Between(-100, 100))
-        .Apply(x => x.Second, Limit.Between(-100, 100))
+        .Apply(x => x.Second, Limit.Between(-10, 10))
         .Build());
 builder.Services.AddTransient(_ => validatorBuilder.Build());
 
@@ -38,3 +38,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program;

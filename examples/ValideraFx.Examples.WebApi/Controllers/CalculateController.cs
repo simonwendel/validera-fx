@@ -13,8 +13,15 @@ public class CalculateController(IValidator validator) : ControllerBase
     [HttpGet("sum", Name = "SumNumbers")]
     public IActionResult Get([FromQuery] UntrustedValue<CalculationOptions> options)
     {
-        var numbers = validator.Validate(options);
-        return Ok(numbers.First + numbers.Second);
+        try
+        {
+            var numbers = validator.Validate(options);
+            return Ok(numbers.First + numbers.Second);
+        }
+        catch (ValidationException)
+        {
+            return BadRequest();
+        }
     }
 }
 

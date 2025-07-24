@@ -11,14 +11,24 @@ namespace ValideraFx.Examples.WebApi.Controllers;
 public class MessageController(IValidator<MessageOptions> validator) : ControllerBase
 {
     [HttpGet(Name = "GetMessage")]
-    public IActionResult Get([FromQuery]UntrustedValue<MessageOptions> options)
+    public IActionResult Get([FromQuery] UntrustedValue<MessageOptions> options)
     {
-        return Ok(validator.Validate(options).Message);
+        try
+        {
+            var validatedOptions = validator.Validate(options);
+            var message = validatedOptions.Message;
+            var numberOfTimes = validatedOptions.NumberOfTimes;
+            return Ok(string.Join('\n', Enumerable.Range(0, numberOfTimes).Select(_ => message)));
+        }
+        catch (ValidationException)
+        {
+            return BadRequest();
+        }
     }
 }
 
 public class MessageOptions
 {
-    public string Message { get; set; }
-    public int NumberOfTimes { get; set; }  
+    public required string Message { get; set; }
+    public int NumberOfTimes { get; set; }
 }

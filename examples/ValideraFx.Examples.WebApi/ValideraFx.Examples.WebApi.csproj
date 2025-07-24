@@ -19,5 +19,9 @@ SPDX-License-Identifier: LGPL-3.0-or-later
       <ProjectReference Include="..\..\ValideraFx.Core\ValideraFx.Core.csproj" />
       <ProjectReference Include="..\..\ValideraFx.Web\ValideraFx.Web.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+        <InternalsVisibleTo Include="ValideraFx.Web.Tests.Integrations" />
+    </ItemGroup>
 
 </Project>

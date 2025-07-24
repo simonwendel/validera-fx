@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web", "ValideraF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web.Tests", "ValideraFx.Web.Tests\ValideraFx.Web.Tests.csproj", "{97713B57-70C2-46AD-AE22-2652EB1573DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web.Tests.Integrations", "ValideraFx.Web.Tests.Integrations\ValideraFx.Web.Tests.Integrations.csproj", "{50EF17F1-4B01-4DE4-81F1-04E84056887D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50EF17F1-4B01-4DE4-81F1-04E84056887D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50EF17F1-4B01-4DE4-81F1-04E84056887D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50EF17F1-4B01-4DE4-81F1-04E84056887D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50EF17F1-4B01-4DE4-81F1-04E84056887D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769} = {068999AD-D770-4D93-920D-4BC706858295}
