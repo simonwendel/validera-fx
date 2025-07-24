@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 using ValideraFx.Core;
-using ValideraFx.Core.Validators;
 using ValideraFx.Examples.WebApi.Controllers;
 using ValideraFx.Web;
 
@@ -12,12 +11,19 @@ builder.Services.AddControllers(options =>
     options.ModelBinderProviders.Insert(0, new UntrustedValueBinderProvider());
 });
 
-var validators = new ValidatorServiceBuilder();
-validators.AddValidator(
-    new ValidatorPipeline<MessageOptions>(
-        new ObjectPropertyValidator<MessageOptions, string>(x => x.Message, new StringLengthValidator(3, 10))));
+var validatorBuilder = new ValidatorServiceBuilder();
+validatorBuilder.AddValidator(
+    Validation.Of<CalculationOptions>()
+        .Apply(x => x.First, Limit.Between(-100, 100))
+        .Apply(x => x.Second, Limit.Between(-100, 100))
+        .Build());
+builder.Services.AddTransient(_ => validatorBuilder.Build());
 
-builder.Services.AddTransient<IValidator>(_ =>validators.Build());
+builder.Services.AddTransient(_ =>
+    Validation.Of<MessageOptions>()
+        .Apply(x => x.Message, Limit.Length(3, 10))
+        .Apply(x => x.NumberOfTimes, Limit.Between(1, 10))
+        .Build());
 
 builder.Services.AddOpenApi();
 

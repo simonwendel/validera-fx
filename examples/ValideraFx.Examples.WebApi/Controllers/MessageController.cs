@@ -8,7 +8,7 @@ namespace ValideraFx.Examples.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class MessageController(IValidator validator) : ControllerBase
+public class MessageController(IValidator<MessageOptions> validator) : ControllerBase
 {
     [HttpGet(Name = "GetMessage")]
     public IActionResult Get([FromQuery]UntrustedValue<MessageOptions> options)
@@ -20,4 +20,5 @@ public class MessageController(IValidator validator) : ControllerBase
 public class MessageOptions
 {
     public string Message { get; set; }
+    public int NumberOfTimes { get; set; }  
 }
