@@ -7,9 +7,9 @@ namespace ValideraFx.Core;
 
 public static class Validation
 {
-    public static Validation<TValidated> Of<TValidated>() where TValidated : notnull
+    public static Validation<T> Of<T>() where T : notnull
     {
-        return new Validation<TValidated>();
+        return new Validation<T>();
     }
 }
 
