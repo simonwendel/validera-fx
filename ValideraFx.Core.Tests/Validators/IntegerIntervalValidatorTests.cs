@@ -20,15 +20,6 @@ public class IntegerIntervalValidatorTests
     }
 
     [Theory]
-    [InlineData(-1, 9)]
-    [InlineData(0, -1)]
-    internal void Ctor_GivenNegativeBounds_ThrowsArgumentOutOfRangeException(int lowerBounds, int upperBounds)
-    {
-        Action constructing = () => new IntegerIntervalValidator(lowerBounds, upperBounds);
-        constructing.Should().Throw<ArgumentOutOfRangeException>();
-    }
-
-    [Theory]
     [InlineAutoData(0, 1)]
     [InlineAutoData(3, 4)]
     [InlineAutoData(5, 6)]

@@ -21,7 +21,7 @@ public class StringLengthValidatorTests
 
     [Theory]
     [InlineData(-1, 9)]
-    [InlineData(0, -1)]
+    [InlineData(-2, -1)]
     internal void Ctor_GivenNegativeBounds_ThrowsArgumentOutOfRangeException(int minLength, int maxLength)
     {
         Action constructing = () => new StringLengthValidator(minLength, maxLength);

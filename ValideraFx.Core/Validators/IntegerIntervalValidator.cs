@@ -10,16 +10,6 @@ public class IntegerIntervalValidator : Validator<int>
 
     public IntegerIntervalValidator(int lowerBounds, int upperBounds = int.MaxValue)
     {
-        if (lowerBounds < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(lowerBounds));
-        }
-
-        if (upperBounds < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(upperBounds));
-        }
-
         if (upperBounds < lowerBounds)
         {
             throw new ArgumentException();

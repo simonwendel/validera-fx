@@ -3,7 +3,25 @@
 
 namespace ValideraFx.Core.Validators;
 
-public class StringLengthValidator(int minLength, int maxLength = int.MaxValue) : ValidatorPipeline<string>(
-    new ObjectPropertyValidator<string, int>(
+public class StringLengthValidator : ValidatorPipeline<string>
+{
+    public StringLengthValidator(int minLength, int maxLength = int.MaxValue) : base(new ObjectPropertyValidator<string, int>(
         x => x.Length,
-        new IntegerIntervalValidator(minLength, maxLength)));
+        new IntegerIntervalValidator(minLength, maxLength)))
+    {
+        if (maxLength < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(maxLength), "Maximum length cannot be negative.");
+        }
+        
+        if (minLength < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(minLength), "Minimum length cannot be negative.");
+        }
+
+        if (maxLength < minLength)
+        {
+            throw new ArgumentException("Maximum length cannot be less than minimum length.", nameof(maxLength));
+        }
+    }
+}
