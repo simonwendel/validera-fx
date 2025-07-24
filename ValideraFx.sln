@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core", "Validera
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core.Tests", "ValideraFx.Core.Tests\ValideraFx.Core.Tests.csproj", "{8C34BF9F-6F20-48C5-A00B-E5F36A559818}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web", "ValideraFx.Web\ValideraFx.Web.csproj", "{27DFE3D8-39F1-4923-A276-7A8B0D81B033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web.Tests", "ValideraFx.Web.Tests\ValideraFx.Web.Tests.csproj", "{97713B57-70C2-46AD-AE22-2652EB1573DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C34BF9F-6F20-48C5-A00B-E5F36A559818}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27DFE3D8-39F1-4923-A276-7A8B0D81B033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97713B57-70C2-46AD-AE22-2652EB1573DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
