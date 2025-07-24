@@ -11,6 +11,7 @@ builder.Services.AddControllers(options =>
     options.ModelBinderProviders.Insert(0, new UntrustedValueBinderProvider());
 });
 
+// Have two options, either we build a compound validator service that will take of all validation:
 var validatorBuilder = new ValidatorServiceBuilder();
 validatorBuilder.AddValidator(
     Validation.Of<CalculationOptions>()
@@ -19,6 +20,7 @@ validatorBuilder.AddValidator(
         .Build());
 builder.Services.AddTransient(_ => validatorBuilder.Build());
 
+// Or we can build a validator for each type, which is what we do here:
 builder.Services.AddTransient(_ =>
     Validation.Of<MessageOptions>()
         .Apply(x => x.Message, Limit.Length(3, 10))
