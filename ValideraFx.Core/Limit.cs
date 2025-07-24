@@ -1,4 +1,7 @@
-﻿using ValideraFx.Core.Validators;
+﻿// SPDX-FileCopyrightText: 2025 Simon Wendel
+// SPDX-License-Identifier: LGPL-3.0-or-later
+
+using ValideraFx.Core.Validators;
 
 namespace ValideraFx.Core;
 
