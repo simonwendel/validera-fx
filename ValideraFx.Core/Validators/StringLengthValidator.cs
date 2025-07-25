@@ -13,15 +13,10 @@ internal class StringLengthValidator : Pipeline<string>
         {
             throw new ArgumentOutOfRangeException(nameof(maxLength), "Maximum length cannot be negative.");
         }
-        
+
         if (minLength < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Minimum length cannot be negative.");
-        }
-
-        if (maxLength < minLength)
-        {
-            throw new ArgumentException("Maximum length cannot be less than minimum length.", nameof(maxLength));
         }
     }
 }
