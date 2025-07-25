@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core.Validators;
 
-public class StringLengthValidator : Pipeline<string>
+internal class StringLengthValidator : Pipeline<string>
 {
     public StringLengthValidator(int minLength, int maxLength = int.MaxValue) : base(new ObjectPropertyValidator<string, int>(
         x => x.Length,

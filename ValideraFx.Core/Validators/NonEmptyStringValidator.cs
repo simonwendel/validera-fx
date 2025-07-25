@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core.Validators;
 
-public class NonEmptyStringValidator : Validator<string>
+internal class NonEmptyStringValidator : Validator<string>
 {
     private protected override bool Valid(string value)
         => !string.IsNullOrWhiteSpace(value);

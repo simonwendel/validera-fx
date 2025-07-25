@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core.Validators;
 
-public class AsciiAlphaNumericStringValidator : Validator<string>
+internal class AsciiAlphaNumericStringValidator : Validator<string>
 {
     private protected override bool Valid(string value) 
         => value.All(char.IsAscii) && value.All(char.IsLetterOrDigit);

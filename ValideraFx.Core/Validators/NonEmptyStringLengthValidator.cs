@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core.Validators;
 
-public class NonEmptyStringLengthValidator : Pipeline<string>
+internal class NonEmptyStringLengthValidator : Pipeline<string>
 {
     public NonEmptyStringLengthValidator(int minLength, int maxLength = int.MaxValue)
         : base(new NonEmptyStringValidator(), new StringLengthValidator(minLength, maxLength))

@@ -14,4 +14,8 @@ SPDX-License-Identifier: LGPL-3.0-or-later
         <None Include="../README.md" Pack="true" PackagePath="/"/>
     </ItemGroup>
     
+    <ItemGroup>
+        <InternalsVisibleTo Include="ValideraFx.Core.Tests" />
+    </ItemGroup>
+
 </Project>
