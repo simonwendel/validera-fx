@@ -6,10 +6,6 @@ using ValideraFx.Examples.WebApi.Controllers;
 using ValideraFx.Web;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers(options =>
-{
-    options.ModelBinderProviders.Insert(0, new UntrustedValueBinderProvider());
-});
 
 // Have two options, either we build a compound validator service that will take of all validation:
 var validatorBuilder = new ValidatorServiceBuilder();
@@ -27,6 +23,7 @@ builder.Services.AddTransient(_ =>
         .Apply(x => x.NumberOfTimes, Limit.Between(1, 10))
         .Build());
 
+builder.Services.AddControllers().AddValideraFx();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
