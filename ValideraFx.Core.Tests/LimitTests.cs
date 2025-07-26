@@ -31,4 +31,8 @@ public class LimitTests
     [Fact]
     public void AsAlphaNumericAscii_Always_ReturnsValidator() =>
         Limit.ToAlphaNumericAscii().Should().BeOfType<AsciiAlphaNumericStringValidator>();
+
+    [Fact]
+    public void ToNonEmptyString_Always_ReturnsValidator() =>
+        Limit.ToNonEmptyString().Should().BeOfType<NonEmptyStringValidator>();
 }

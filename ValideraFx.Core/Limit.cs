@@ -36,4 +36,9 @@ public static class Limit
     {
         return new AsciiAlphaNumericStringValidator();
     }
+
+    public static IValidator<string> ToNonEmptyString()
+    {
+        return new NonEmptyStringValidator();
+    }
 }
