@@ -5,17 +5,20 @@ SPDX-License-Identifier: LGPL-3.0-or-later
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <PackageLicenseExpression>LGPL-3.0-or-later</PackageLicenseExpression>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Copyright>2025 Simon Wendel</Copyright>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="../README.md" Pack="true" PackagePath="/"/>
+        <None Include="README.md" Pack="true" PackagePath="/"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-        <InternalsVisibleTo Include="ValideraFx.Core.Tests" />
+        <InternalsVisibleTo Include="ValideraFx.Core.Tests"/>
     </ItemGroup>
 
 </Project>
