@@ -10,9 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Have two options, either we build a compound validator service that will take of all validation:
 var validatorBuilder = new ValidatorServiceBuilder();
 validatorBuilder.AddValidator(
-    Validation.Of<CalculationOptions>()
-        .Apply(x => x.First, Limit.Between(-100, 100))
-        .Apply(x => x.Second, Limit.Between(-10, 10))
+    Validation.Of<int>()
+        .Apply(x => x, Limit.Between(-10, 10))
         .Build());
 builder.Services.AddTransient(_ => validatorBuilder.Build());
 

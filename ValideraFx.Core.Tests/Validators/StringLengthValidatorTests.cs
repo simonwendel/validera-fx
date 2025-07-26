@@ -37,7 +37,25 @@ public class StringLengthValidatorTests
         var untrusted = new UntrustedValue<string>(value);
         var sut = new StringLengthValidator(minLength);
         Action validating = () => sut.Validate(untrusted);
-        validating.Should().Throw<ValidationException>();
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed, the value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
+    }
+
+    [Theory]
+    [InlineAutoData("", 1)]
+    [InlineAutoData("_1_", 4)]
+    [InlineAutoData("abc", 6)]
+    internal void Validate_GivenTooShortStringAndName_ThrowsException(string value, int minLength)
+    {
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        var sut = new StringLengthValidator(minLength);
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString', the value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
     }
 
     [Theory]
@@ -49,7 +67,25 @@ public class StringLengthValidatorTests
         var untrusted = new UntrustedValue<string>(value);
         var sut = new StringLengthValidator(minLength, maxLength);
         Action validating = () => sut.Validate(untrusted);
-        validating.Should().Throw<ValidationException>();
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed, the value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
+    }
+
+    [Theory]
+    [InlineAutoData("12", 0, 1)]
+    [InlineAutoData("_1_2_3_4", 2, 4)]
+    [InlineAutoData("abcdefghijklmnopqrstuvxyz", 6, 20)]
+    internal void Validate_GivenTooLongStringAndName_ThrowsException(string value, int minLength, int maxLength)
+    {
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        var sut = new StringLengthValidator(minLength, maxLength);
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString', the value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
     }
 
     [Fact]

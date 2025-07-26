@@ -14,7 +14,19 @@ public class ObjectPropertyValidatorTests
     {
         var (sut, obj) = CreateSystemFor(string.Empty);
         Action validating = () => sut.Validate(new UntrustedValue<TestValue>(obj));
-        validating.Should().Throw<ValidationException>();
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage("Validation failed for 'TestProperty', the value '' is null or empty.");
+    }
+
+    [Fact]
+    internal void Validate_GivenInvalidPropertyAndName_ThrowsException()
+    {
+        var (sut, obj) = CreateSystemFor(string.Empty);
+        Action validating = () => sut.Validate(new UntrustedValue<TestValue>(obj, "myObject"));
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage("Validation failed for 'myObject.TestProperty', the value '' is null or empty.");
     }
 
     [Theory, AutoData]

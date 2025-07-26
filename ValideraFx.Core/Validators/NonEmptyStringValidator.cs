@@ -7,4 +7,6 @@ internal class NonEmptyStringValidator : Validator<string>
 {
     private protected override bool Valid(string value, string? name)
         => !string.IsNullOrWhiteSpace(value);
+
+    private protected override string GetPartialMessage() => "is null or empty";
 }

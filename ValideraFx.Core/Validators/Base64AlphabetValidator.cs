@@ -7,4 +7,6 @@ internal class Base64AlphabetValidator : Validator<string>
 {
     private protected override bool Valid(string value, string? name)
         => Convert.TryFromBase64String(value, new byte[value.Length * 2], out _); // BMP is max 2 bytes per character
+
+    private protected override string GetPartialMessage() => "is not a valid base64 alphabet string";
 }

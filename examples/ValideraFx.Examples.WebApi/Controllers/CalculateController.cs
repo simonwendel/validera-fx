@@ -11,22 +11,15 @@ namespace ValideraFx.Examples.WebApi.Controllers;
 public class CalculateController(IValidator validator) : ControllerBase
 {
     [HttpGet("sum", Name = "SumNumbers")]
-    public IActionResult Get([FromQuery] UntrustedValue<CalculationOptions> options)
+    public IActionResult Get([FromQuery] UntrustedValue<int> first, [FromQuery] UntrustedValue<int> second)
     {
         try
         {
-            var numbers = validator.Validate(options);
-            return Ok(numbers.First + numbers.Second);
+            return Ok(validator.Validate(first) + validator.Validate(second));
         }
         catch (ValidationException exception)
         {
             return BadRequest(exception.Message);
         }
     }
-}
-
-public class CalculationOptions
-{
-    public int First { get; set; }
-    public int Second { get; set; }
 }

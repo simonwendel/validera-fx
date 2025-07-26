@@ -3,11 +3,13 @@
 
 namespace ValideraFx.Core.Validators;
 
-internal class StringLengthValidator : Pipeline<string>
+internal class StringLengthValidator : Validator<string>
 {
-    public StringLengthValidator(int minLength, int maxLength = int.MaxValue) : base(new ObjectPropertyValidator<string, int>(
-        x => x.Length,
-        new IntegerIntervalValidator(minLength, maxLength)))
+    private readonly int minLength;
+    private readonly int maxLength;
+    private readonly Validator<string> stringValidator;
+
+    public StringLengthValidator(int minLength, int maxLength = int.MaxValue)
     {
         if (maxLength < 0)
         {
@@ -18,5 +20,31 @@ internal class StringLengthValidator : Pipeline<string>
         {
             throw new ArgumentOutOfRangeException(nameof(minLength), "Minimum length cannot be negative.");
         }
+
+        this.minLength = minLength;
+        this.maxLength = maxLength;
+
+        stringValidator = new ObjectPropertyValidator<string, int>(
+            x => x.Length,
+            new IntegerIntervalValidator(minLength, maxLength));
+    }
+
+    private protected override bool Valid(string value, string? name)
+    {
+        try
+        {
+            stringValidator.Validate(new UntrustedValue<string>(value, name));
+            return true;
+        }
+        catch (ValidationException)
+        {
+            return false;
+        }
+    }
+
+    private protected override string GetPartialMessage()
+    {
+        var maxLengthLabel = maxLength == int.MaxValue ? "int.MaxValue" : $"{maxLength}";
+        return $"does not have a valid length (must be between {minLength} and {maxLengthLabel})";
     }
 }

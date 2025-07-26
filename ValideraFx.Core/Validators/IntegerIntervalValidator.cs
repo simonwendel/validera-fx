@@ -23,4 +23,11 @@ internal class IntegerIntervalValidator : Validator<int>
     {
         return value >= lowerBounds && value <= upperBounds;
     }
+
+    private protected override string GetPartialMessage()
+    {
+        var lowerBoundsLabel = lowerBounds == int.MinValue ? "int.MinValue" : $"{lowerBounds}";
+        var upperBoundsLabel = upperBounds == int.MaxValue ? "int.MaxValue" : $"{upperBounds}";
+        return $"is not within the interval [{lowerBoundsLabel}, {upperBoundsLabel}]";
+    }
 }

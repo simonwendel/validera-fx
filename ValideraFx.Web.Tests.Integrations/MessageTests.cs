@@ -20,7 +20,9 @@ public class MessageTests(WebApplicationFactory<Program> factory) : IClassFixtur
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var content = await response.Content.ReadAsStringAsync();
-        content.Should().Be("Validation failed for 'options'.");
+        content.Should()
+            .Be(
+                $"Validation failed for 'options.Message', the value '{message}' does not have a valid length (must be between 3 and 10).");
     }
 
     [Theory]
@@ -32,7 +34,9 @@ public class MessageTests(WebApplicationFactory<Program> factory) : IClassFixtur
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var content = await response.Content.ReadAsStringAsync();
-        content.Should().Be("Validation failed for 'options'.");
+        content.Should()
+            .Be(
+                $"Validation failed for 'options.NumberOfTimes', the value '{numberOfTimes}' is not within the interval [1, 10].");
     }
 
     [Theory]

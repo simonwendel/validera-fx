@@ -11,13 +11,15 @@ public abstract class Validator<T> : IValidator<T> where T : notnull
             : throw ValidationFailed(untrustedValue);
 
     private protected abstract bool Valid(T value, string? name);
+    private protected abstract string GetPartialMessage();
 
     private ValidationException ValidationFailed(UntrustedValue<T> untrustedValue)
     {
-        var message = untrustedValue.Name != null
-            ? $"Validation failed for '{untrustedValue.Name}'."
-            : "Validation failed.";
+        var intro = untrustedValue.Name != null
+            ? $"Validation failed for '{untrustedValue.Name}'"
+            : "Validation failed";
 
+        var message = $"{intro}, the value '{untrustedValue.Value}' {GetPartialMessage()}.";
         return new ValidationException(message);
     }
 }
