@@ -11,7 +11,7 @@ namespace ValideraFx.Examples.WebApi.Controllers;
 public class MessageController(IValidator<MessageOptions> validator) : ControllerBase
 {
     [HttpGet(Name = "GetMessage")]
-    public IActionResult Get([FromQuery] UntrustedValue<MessageOptions> options,[FromQuery] int x)
+    public IActionResult Get([FromQuery] UntrustedValue<MessageOptions> options)
     {
         try
         {
