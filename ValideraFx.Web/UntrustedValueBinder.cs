@@ -36,7 +36,6 @@ internal class UntrustedValueBinder(
             var closedType = genericDef.MakeGenericType(innerType);
             var name = bindingContext.ModelMetadata.ParameterName;
             var instance = Activator.CreateInstance(closedType, nestedContext.Result.Model, name);
-            bindingContext.ModelState.Clear();
             bindingContext.Result = ModelBindingResult.Success(instance);
         }
     }

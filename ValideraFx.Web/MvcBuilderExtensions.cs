@@ -13,8 +13,10 @@ public static class MvcBuilderExtensions
         builder.Services.Configure<MvcOptions>(options =>
         {
             options.ModelBinderProviders.Insert(0, new UntrustedValueBinderProvider());
+            options.ModelValidatorProviders.Insert(0, new UntrustedValueValidatorProvider());
+            options.ModelMetadataDetailsProviders.Add(new UntrustedValueValidationMetadataProvider());
         });
-        
+
         return builder;
     }
 }

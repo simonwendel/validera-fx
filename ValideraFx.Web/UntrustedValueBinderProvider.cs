@@ -8,7 +8,7 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web;
 
-public class UntrustedValueBinderProvider : IModelBinderProvider
+internal class UntrustedValueBinderProvider : IModelBinderProvider
 {
     private readonly ConcurrentDictionary<Type, IModelBinder> cache = new();
 
