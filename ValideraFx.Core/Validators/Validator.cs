@@ -19,7 +19,7 @@ public abstract class Validator<T> : IValidator<T> where T : notnull
             ? $"Validation failed for '{untrustedValue.Name}'"
             : "Validation failed";
 
-        var message = $"{intro}, the value '{untrustedValue.Value}' {GetPartialMessage()}.";
+        var message = $"{intro}. The value '{untrustedValue.Value}' {GetPartialMessage()}.";
         return new ValidationException(message);
     }
 }

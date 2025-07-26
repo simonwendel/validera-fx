@@ -31,7 +31,7 @@ public class IntegerIntervalValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed, the value '{value}' is not within the interval [{lowerBounds}, int.MaxValue].");
+                $"Validation failed. The value '{value}' is not within the interval [{lowerBounds}, int.MaxValue].");
     }
 
     [Theory]
@@ -46,7 +46,7 @@ public class IntegerIntervalValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myInteger', the value '{value}' is not within the interval [{lowerBounds}, int.MaxValue].");
+                $"Validation failed for 'myInteger'. The value '{value}' is not within the interval [{lowerBounds}, int.MaxValue].");
     }
 
     [Theory]
@@ -61,7 +61,7 @@ public class IntegerIntervalValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed, the value '{value}' is not within the interval [{lowerBounds}, {upperBounds}].");
+                $"Validation failed. The value '{value}' is not within the interval [{lowerBounds}, {upperBounds}].");
     }
 
     [Theory]
@@ -77,7 +77,7 @@ public class IntegerIntervalValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myInteger', the value '{value}' is not within the interval [{lowerBounds}, {upperBounds}].");
+                $"Validation failed for 'myInteger'. The value '{value}' is not within the interval [{lowerBounds}, {upperBounds}].");
     }
 
     [Fact]

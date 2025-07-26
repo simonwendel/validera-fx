@@ -19,7 +19,7 @@ public class Base64AlphabetValidatorTests
         Action validating = () => sut.Validate(new UntrustedValue<string>(value));
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed, the value '{value}' is not a valid base64 alphabet string.");
+            .WithMessage($"Validation failed. The value '{value}' is not a valid base64 alphabet string.");
     }
 
     [Theory]
@@ -33,7 +33,7 @@ public class Base64AlphabetValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myString', the value '{value}' is not a valid base64 alphabet string.");
+                $"Validation failed for 'myString'. The value '{value}' is not a valid base64 alphabet string.");
     }
 
     [Theory]
@@ -46,7 +46,7 @@ public class Base64AlphabetValidatorTests
         Action validating = () => sut.Validate(new UntrustedValue<string>(value));
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed, the value '{value}' is not a valid base64 alphabet string.");
+            .WithMessage($"Validation failed. The value '{value}' is not a valid base64 alphabet string.");
     }
 
     [Theory]
@@ -60,7 +60,7 @@ public class Base64AlphabetValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myString', the value '{value}' is not a valid base64 alphabet string.");
+                $"Validation failed for 'myString'. The value '{value}' is not a valid base64 alphabet string.");
     }
 
     [Theory]

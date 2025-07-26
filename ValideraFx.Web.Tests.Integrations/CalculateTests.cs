@@ -21,7 +21,7 @@ public class CalculateTests(WebApplicationFactory<Program> factory) : IClassFixt
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var content = await response.Content.ReadAsStringAsync();
         content.Should()
-            .Be($"Validation failed for 'first', the value '{first}' is not within the interval [-10, 10].");
+            .Be($"Validation failed for 'first'. The value '{first}' is not within the interval [-10, 10].");
     }
 
     [Theory]
@@ -34,7 +34,7 @@ public class CalculateTests(WebApplicationFactory<Program> factory) : IClassFixt
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         var content = await response.Content.ReadAsStringAsync();
         content.Should()
-            .Be($"Validation failed for 'second', the value '{second}' is not within the interval [-10, 10].");
+            .Be($"Validation failed for 'second'. The value '{second}' is not within the interval [-10, 10].");
     }
 
     [Theory]

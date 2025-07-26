@@ -40,7 +40,7 @@ public class StringLengthValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed, the value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
+                $"Validation failed. The value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
     }
 
     [Theory]
@@ -55,7 +55,7 @@ public class StringLengthValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myString', the value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
+                $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
     }
 
     [Theory]
@@ -70,7 +70,7 @@ public class StringLengthValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed, the value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
+                $"Validation failed. The value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
     }
 
     [Theory]
@@ -85,7 +85,7 @@ public class StringLengthValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myString', the value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
+                $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
     }
 
     [Fact]

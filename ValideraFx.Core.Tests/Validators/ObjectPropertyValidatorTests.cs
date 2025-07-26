@@ -16,7 +16,7 @@ public class ObjectPropertyValidatorTests
         Action validating = () => sut.Validate(new UntrustedValue<TestValue>(obj));
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage("Validation failed for 'TestProperty', the value '' is null or empty.");
+            .WithMessage("Validation failed for 'TestProperty'. The value '' is null or empty.");
     }
 
     [Fact]
@@ -26,7 +26,7 @@ public class ObjectPropertyValidatorTests
         Action validating = () => sut.Validate(new UntrustedValue<TestValue>(obj, "myObject"));
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage("Validation failed for 'myObject.TestProperty', the value '' is null or empty.");
+            .WithMessage("Validation failed for 'myObject.TestProperty'. The value '' is null or empty.");
     }
 
     [Theory, AutoData]

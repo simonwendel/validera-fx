@@ -18,7 +18,7 @@ public class NonEmptyStringLengthValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed, the value '{value}' is null or empty.");
+            .WithMessage($"Validation failed. The value '{value}' is null or empty.");
     }
 
     [Theory]
@@ -31,7 +31,7 @@ public class NonEmptyStringLengthValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed for 'myString', the value '{value}' is null or empty.");
+            .WithMessage($"Validation failed for 'myString'. The value '{value}' is null or empty.");
     }
 
     [Theory]
@@ -45,7 +45,7 @@ public class NonEmptyStringLengthValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed, the value '{value}' does not have a valid length (must be between 3 and 5).");
+                $"Validation failed. The value '{value}' does not have a valid length (must be between 3 and 5).");
     }
 
     [Theory]
@@ -59,7 +59,7 @@ public class NonEmptyStringLengthValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myString', the value '{value}' does not have a valid length (must be between 3 and 5).");
+                $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between 3 and 5).");
     }
 
     [Theory]

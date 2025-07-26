@@ -22,7 +22,7 @@ public class AsciiAlphaNumericStringValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed, the value '{value}' is not a valid ASCII alpha-numeric string.");
+            .WithMessage($"Validation failed. The value '{value}' is not a valid ASCII alpha-numeric string.");
     }
 
     [Theory]
@@ -39,7 +39,7 @@ public class AsciiAlphaNumericStringValidatorTests
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage(
-                $"Validation failed for 'myString', the value '{value}' is not a valid ASCII alpha-numeric string.");
+                $"Validation failed for 'myString'. The value '{value}' is not a valid ASCII alpha-numeric string.");
     }
 
     [Theory]
