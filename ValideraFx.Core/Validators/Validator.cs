@@ -15,11 +15,7 @@ public abstract class Validator<T> : IValidator<T> where T : notnull
 
     private ValidationException ValidationFailed(UntrustedValue<T> untrustedValue)
     {
-        var intro = untrustedValue.Name != null
-            ? $"Validation failed for '{untrustedValue.Name}'"
-            : "Validation failed";
-
-        var message = $"{intro}. The value '{untrustedValue.Value}' {GetPartialMessage()}.";
-        return new ValidationException(message);
+        var message = $"The value '{untrustedValue.Value}' {GetPartialMessage()}.";
+        return new ValidationException(untrustedValue.Name, message);
     }
 }
