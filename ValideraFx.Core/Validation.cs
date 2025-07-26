@@ -18,6 +18,7 @@ public static class Validation
 public class Validation<T> where T : notnull
 {
     private readonly List<Validator<T>> validatorPipeline = [];
+    private readonly List<ParameterExpression> parameterSelectors = [];
     private readonly List<MemberExpression> memberSelectors = [];
 
     public Validation<T> Apply<TProp>(Expression<Func<T, TProp>> selector,
@@ -45,13 +46,28 @@ public class Validation<T> where T : notnull
 
     private void SaveSelectorForLater<TProp>(Expression<Func<T, TProp>> selector)
     {
-        if ((selector.Body is UnaryExpression u ? u.Operand : selector.Body) is not MemberExpression memberExpression)
+        var body = selector.Body;
+        if (body is UnaryExpression u)
         {
-            throw new ArgumentException(
-                $"The selector expression must be a member access expression, but was: {selector.Body}");
+            body = u.Operand;
         }
 
-        memberSelectors.Add(memberExpression);
+        switch (body)
+        {
+            case ParameterExpression parameterExpression:
+                parameterSelectors.Add(parameterExpression);
+                return;
+            case MemberExpression memberExpression:
+                memberSelectors.Add(memberExpression);
+                return;
+        }
+        
+        var bodyText = body.ToString();
+        var expressionText = bodyText.StartsWith('(') && bodyText.EndsWith(')')
+            ? bodyText[1..^1]
+            : bodyText;
+        throw new ArgumentException(
+            $"The selector must be a member access or a bare parameter, but the expression is '{expressionText}'.");
     }
 
     private void AddNewValidators<TProp>(Expression<Func<T, TProp>> selector, IValidator<TProp>[] validators)
@@ -63,11 +79,12 @@ public class Validation<T> where T : notnull
 
     private void EnsureTypeIsProperlyValidated()
     {
+        var validationForTypeItself = parameterSelectors.Any(x => x.Type == typeof(T));
         var missingProperties = GetMissingMembers();
-        if (missingProperties.Count > 0)
+        if (!validationForTypeItself && missingProperties.Count > 0)
         {
             throw new InvalidOperationException(
-                $"Not all properties/fields of {typeof(T).Name} are validated. Missing: {string.Join(", ", missingProperties)}");
+                $"Not all properties or fields of {typeof(T).Name} are validated. Validation is missing for '{string.Join(", ", missingProperties)}'.");
         }
     }
 

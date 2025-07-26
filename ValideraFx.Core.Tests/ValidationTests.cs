@@ -10,13 +10,32 @@ namespace ValideraFx.Core.Tests;
 public class ValidationTests
 {
     [Fact]
-    public void Apply_GivenNonMemberSelectorLambda_ThrowsException()
+    public void Apply_GivenSimpleNonMemberSelectorLambda_ThrowsException()
     {
         Action applying = () => Validation.Of<SomeType>()
             .Apply(x => x.Value1 + 1, Limit.AtLeast(0));
 
         applying.Should().Throw<ArgumentException>()
-            .WithMessage("The selector expression must be a member access expression, but was: (x.Value1 + 1)");
+            .WithMessage(
+                "The selector must be a member access or a bare parameter, but the expression is 'x.Value1 + 1'.");
+    }
+    [Fact]
+    
+    public void Apply_GivenComplexNonMemberSelectorLambda_ThrowsException()
+    {
+        Action applying = () => Validation.Of<SomeType>()
+            .Apply(x => x.Value1 + (x.value3 - 1), Limit.AtLeast(0));
+
+        applying.Should().Throw<ArgumentException>()
+            .WithMessage(
+                "The selector must be a member access or a bare parameter, but the expression is 'x.Value1 + (x.value3 - 1)'.");
+    }
+
+    [Fact]
+    public void Apply_GivenBareParameterForComplexType_ShouldNotThrow()
+    {
+        Action applying = () => Validation.Of<SomeType>().Apply(x => x, new SomeTypeCustomValidator());
+        applying.Should().NotThrow();
     }
 
     [Theory]
@@ -37,7 +56,7 @@ public class ValidationTests
             .Build(allowMissing: false);
 
         building.Should().Throw<InvalidOperationException>()
-            .WithMessage("Not all properties/fields of SomeType are validated. Missing: Value2, value3");
+            .WithMessage("Not all properties or fields of SomeType are validated. Validation is missing for 'Value2, value3'.");
     }
 
     [Fact]
@@ -47,6 +66,18 @@ public class ValidationTests
             .Apply(x => x.Value1, Limit.AtLeast(0))
             .Apply(x => x.Value2, Limit.AtLeast(0))
             .Apply(x => x.value3, Limit.AtLeast(0))
+            .Build(allowMissing: false);
+
+        validator.Should().NotBeNull();
+        validator.Should().BeOfType<Pipeline<SomeType>>();
+    }
+
+    [Fact]
+    public void Build_GivenAllowMissingFalseBareParameterAndMissingProperty_ReturnsValidator()
+    {
+        var validator = Validation.Of<SomeType>()
+            .Apply(x => x.Value1, Limit.AtLeast(0))
+            .Apply(x => x, new SomeTypeCustomValidator())
             .Build(allowMissing: false);
 
         validator.Should().NotBeNull();
@@ -65,12 +96,18 @@ public class ValidationTests
     }
 
     [ExcludeFromCodeCoverage]
+    private class SomeTypeCustomValidator : IValidator<SomeType>
+    {
+        public SomeType Validate(UntrustedValue<SomeType> value) => value.Value;
+    }
+
+    [ExcludeFromCodeCoverage]
     private class SomeType
     {
         public int Value1 { get; set; }
         public int Value2 { get; set; }
         public int value3;
-        
+
         public void SetValue3(int value)
         {
             value3 = value;
