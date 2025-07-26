@@ -18,9 +18,9 @@ public class CalculateController(IValidator validator) : ControllerBase
             var numbers = validator.Validate(options);
             return Ok(numbers.First + numbers.Second);
         }
-        catch (ValidationException)
+        catch (ValidationException exception)
         {
-            return BadRequest();
+            return BadRequest(exception.Message);
         }
     }
 }

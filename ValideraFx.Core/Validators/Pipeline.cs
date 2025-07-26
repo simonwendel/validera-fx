@@ -17,10 +17,10 @@ public class Pipeline<T> : Validator<T> where T : notnull
         this.validators = validators;
     }
 
-    private protected override bool Valid(T value)
+    private protected override bool Valid(T value, string? name)
         => validators.All(validator =>
         {
-            validator.Validate(new UntrustedValue<T>(value));
+            validator.Validate(new UntrustedValue<T>(value, name));
             return true;
         });
 }

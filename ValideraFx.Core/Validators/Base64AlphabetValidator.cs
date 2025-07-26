@@ -5,6 +5,6 @@ namespace ValideraFx.Core.Validators;
 
 internal class Base64AlphabetValidator : Validator<string>
 {
-    private protected override bool Valid(string value)
+    private protected override bool Valid(string value, string? name)
         => Convert.TryFromBase64String(value, new byte[value.Length * 2], out _); // BMP is max 2 bytes per character
 }

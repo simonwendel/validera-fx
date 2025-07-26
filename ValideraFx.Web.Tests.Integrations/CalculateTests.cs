@@ -19,6 +19,8 @@ public class CalculateTests(WebApplicationFactory<Program> factory) : IClassFixt
         var url = $"/calculate/sum?first={first}&second=1";
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var content = await response.Content.ReadAsStringAsync();
+        content.Should().Be("Validation failed for 'options'.");
     }
 
     [Theory]
@@ -29,6 +31,8 @@ public class CalculateTests(WebApplicationFactory<Program> factory) : IClassFixt
         var url = $"/calculate/sum?first=1&second={second}";
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var content = await response.Content.ReadAsStringAsync();
+        content.Should().Be("Validation failed for 'options'.");
     }
 
     [Theory]

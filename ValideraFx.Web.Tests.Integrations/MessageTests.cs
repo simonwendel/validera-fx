@@ -19,6 +19,8 @@ public class MessageTests(WebApplicationFactory<Program> factory) : IClassFixtur
         var url = $"/message?message={message}&numberOfTimes=1";
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var content = await response.Content.ReadAsStringAsync();
+        content.Should().Be("Validation failed for 'options'.");
     }
 
     [Theory]
@@ -29,6 +31,8 @@ public class MessageTests(WebApplicationFactory<Program> factory) : IClassFixtur
         var url = $"/message?message=hello&numberOfTimes={numberOfTimes}";
         var response = await client.GetAsync(url);
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        var content = await response.Content.ReadAsStringAsync();
+        content.Should().Be("Validation failed for 'options'.");
     }
 
     [Theory]

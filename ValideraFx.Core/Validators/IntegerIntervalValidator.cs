@@ -19,7 +19,7 @@ internal class IntegerIntervalValidator : Validator<int>
         this.upperBounds = upperBounds;
     }
 
-    private protected override bool Valid(int value)
+    private protected override bool Valid(int value, string? name)
     {
         return value >= lowerBounds && value <= upperBounds;
     }

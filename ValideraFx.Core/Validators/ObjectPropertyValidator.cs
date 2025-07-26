@@ -10,11 +10,11 @@ internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> sele
     where T : notnull
     where TProp : notnull
 {
-    private protected override bool Valid(T value)
+    private protected override bool Valid(T value, string? name)
     {
         try
         {
-            validator.Validate(new UntrustedValue<TProp>(selector.Compile().Invoke(value)));
+            validator.Validate(new UntrustedValue<TProp>(selector.Compile().Invoke(value), name));
             return true;
         }
         catch (ValidationException)
