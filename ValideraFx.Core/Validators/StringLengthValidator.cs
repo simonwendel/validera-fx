@@ -24,7 +24,7 @@ internal class StringLengthValidator : Validator<string>
         this.minLength = minLength;
         this.maxLength = maxLength;
 
-        stringValidator = new ObjectPropertyValidator<string, int>(
+        stringValidator = new ObjectValidator<string, int>(
             x => x.Length,
             new IntegerIntervalValidator(minLength, maxLength));
     }

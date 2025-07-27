@@ -73,7 +73,7 @@ public class Validation<T> where T : notnull
     private void AddNewValidators<TProp>(Expression<Func<T, TProp>> selector, IValidator<TProp>[] validators)
         where TProp : notnull
     {
-        var newValidators = validators.Select(v => new ObjectPropertyValidator<T, TProp>(selector, v));
+        var newValidators = validators.Select(v => new ObjectValidator<T, TProp>(selector, v));
         validatorPipeline.AddRange(newValidators);
     }
 

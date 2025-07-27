@@ -7,7 +7,7 @@ using ValideraFx.Core.Validators;
 
 namespace ValideraFx.Core.Tests.Validators;
 
-public class ObjectPropertyValidatorTests
+public class ObjectValidatorTests
 {
     [Fact]
     internal void Validate_GivenInvalidProperty_ThrowsException()
@@ -41,11 +41,11 @@ public class ObjectPropertyValidatorTests
         public string TestProperty { get; } = testProperty;
     }
 
-    private (ObjectPropertyValidator<TestValue, string>, TestValue) CreateSystemFor(string value)
+    private (ObjectValidator<TestValue, string>, TestValue) CreateSystemFor(string value)
     {
         var validator = new NonEmptyStringValidator();
         var obj = new TestValue(value);
-        var sut = new ObjectPropertyValidator<TestValue, string>(x => x.TestProperty, validator);
+        var sut = new ObjectValidator<TestValue, string>(x => x.TestProperty, validator);
         return (sut, obj);
     }
 }

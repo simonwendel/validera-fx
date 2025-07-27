@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace ValideraFx.Core.Validators;
 
-internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> selector, IValidator<TProp> validator)
+internal class ObjectValidator<T, TProp>(Expression<Func<T, TProp>> selector, IValidator<TProp> validator)
     : Validator<T>
     where T : notnull
     where TProp : notnull
@@ -38,7 +38,7 @@ internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> sele
     }
 
     /// <remarks>
-    /// The <see cref="ObjectPropertyValidator{T,TProp}" /> will never throw an exception itself, but instead
+    /// The <see cref="ObjectValidator{T,TProp}" /> will never throw an exception itself, but instead
     /// the nested <see cref="IValidator{TProp}" /> will throw an exception if the validation fails. The nested
     /// validator is thus responsible for providing the error message.
     /// </remarks>
