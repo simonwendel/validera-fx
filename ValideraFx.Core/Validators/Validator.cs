@@ -10,8 +10,8 @@ public abstract class Validator<T> : IValidator<T> where T : notnull
             ? untrustedValue.Value
             : throw ValidationFailed(untrustedValue);
 
-    private protected abstract bool Valid(T value, string? name);
-    private protected abstract string GetPartialMessage();
+    protected abstract bool Valid(T value, string? name);
+    protected abstract string GetPartialMessage();
 
     private ValidationException ValidationFailed(UntrustedValue<T> untrustedValue)
     {

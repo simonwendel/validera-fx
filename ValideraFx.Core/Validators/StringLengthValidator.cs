@@ -29,7 +29,7 @@ internal class StringLengthValidator : Validator<string>
             new IntegerIntervalValidator(minLength, maxLength));
     }
 
-    private protected override bool Valid(string value, string? name)
+    protected override bool Valid(string value, string? name)
     {
         try
         {
@@ -42,7 +42,7 @@ internal class StringLengthValidator : Validator<string>
         }
     }
 
-    private protected override string GetPartialMessage()
+    protected override string GetPartialMessage()
     {
         var maxLengthLabel = maxLength == int.MaxValue ? "int.MaxValue" : $"{maxLength}";
         return $"does not have a valid length (must be between {minLength} and {maxLengthLabel})";

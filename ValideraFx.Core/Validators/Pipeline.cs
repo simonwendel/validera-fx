@@ -19,7 +19,7 @@ public class Pipeline<T> : Validator<T> where T : notnull
         this.validators = validators;
     }
 
-    private protected override bool Valid(T value, string? name)
+    protected override bool Valid(T value, string? name)
         => validators.All(validator =>
         {
             validator.Validate(new UntrustedValue<T>(value, name));
@@ -32,5 +32,5 @@ public class Pipeline<T> : Validator<T> where T : notnull
     /// validator is thus responsible for providing the error message.
     /// </remarks>
     /// <exception cref="UnreachableException">This method should never be called.</exception>
-    private protected override string GetPartialMessage() => throw new UnreachableException();
+    protected override string GetPartialMessage() => throw new UnreachableException();
 }

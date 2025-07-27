@@ -11,7 +11,7 @@ internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> sele
     where T : notnull
     where TProp : notnull
 {
-    private protected override bool Valid(T value, string? name)
+    protected override bool Valid(T value, string? name)
     {
         validator.Validate(new UntrustedValue<TProp>(
             selector.Compile().Invoke(value),
@@ -42,5 +42,5 @@ internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> sele
     /// validator is thus responsible for providing the error message.
     /// </remarks>
     /// <exception cref="UnreachableException">This method should never be called.</exception>
-    private protected override string GetPartialMessage() => throw new UnreachableException();
+    protected override string GetPartialMessage() => throw new UnreachableException();
 }
