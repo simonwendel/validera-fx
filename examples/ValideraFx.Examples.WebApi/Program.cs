@@ -22,6 +22,11 @@ builder.Services.AddTransient(_ =>
         .Apply(x => x.Repeat, Limit.Within(1, 10))
         .Build());
 
+builder.Services.AddTransient(_ =>
+    Validation.Of<ShuffleRequest>()
+        .Apply(x => x.Items, Limit.CountWithin<string>(3, 7))
+        .Build());
+
 builder.Services.AddControllers().AddValideraFx();
 builder.Services.AddOpenApi();
 
