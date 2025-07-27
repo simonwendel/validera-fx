@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ValideraFx.Core.Validators;
 
@@ -32,5 +33,6 @@ public class Pipeline<T> : Validator<T> where T : notnull
     /// validator is thus responsible for providing the error message.
     /// </remarks>
     /// <exception cref="UnreachableException">This method should never be called.</exception>
+    [ExcludeFromCodeCoverage]
     protected override string GetPartialMessage() => throw new UnreachableException();
 }

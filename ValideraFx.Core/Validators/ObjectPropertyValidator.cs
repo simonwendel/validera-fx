@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 
 namespace ValideraFx.Core.Validators;
@@ -42,5 +43,6 @@ internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> sele
     /// validator is thus responsible for providing the error message.
     /// </remarks>
     /// <exception cref="UnreachableException">This method should never be called.</exception>
+    [ExcludeFromCodeCoverage]
     protected override string GetPartialMessage() => throw new UnreachableException();
 }

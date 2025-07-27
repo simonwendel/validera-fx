@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using ValideraFx.Core.Validators;
 
 namespace ValideraFx.Web.Validators;
@@ -13,5 +14,6 @@ internal class NoOpValidator<T> : Validator<T> where T : notnull
     /// reasonable to create an error message from it.
     /// </remarks>
     /// <exception cref="UnreachableException">This method should never be called.</exception>
+    [ExcludeFromCodeCoverage]
     protected override string GetPartialMessage() => throw new UnreachableException();
 }
