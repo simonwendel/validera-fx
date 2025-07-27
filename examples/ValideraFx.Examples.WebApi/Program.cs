@@ -1,6 +1,7 @@
 // SPDX-FileCopyrightText: 2025 Simon Wendel
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
+using System.Diagnostics.CodeAnalysis;
 using ValideraFx.Core;
 using ValideraFx.Examples.WebApi.Controllers;
 using ValideraFx.Web;
@@ -42,4 +43,5 @@ app.MapControllers();
 
 app.Run();
 
+[ExcludeFromCodeCoverage]
 public partial class Program;
