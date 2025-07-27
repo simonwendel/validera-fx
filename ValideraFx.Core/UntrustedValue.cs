@@ -25,12 +25,7 @@ public class UntrustedValue<T>(T value, string? name = null)
     /// </remarks>
     public sealed override int GetHashCode()
         => Value.GetHashCode();
-
-    /// <remarks>
-    /// In order to at least make it hard to bypass validation, ToString() will always throw an
-    /// exception and is sealed to prevent such silliness.
-    /// </remarks>>
-    /// <exception cref="InvalidOperationException">Always.</exception>
+    
     public sealed override string ToString() => FormatType(GetType());
 
     private static string FormatType(Type type)
