@@ -3,14 +3,15 @@
 
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using ValideraFx.Core.Validators;
+using ValideraFx.Core;
+using ValideraFx.Web.Validators;
 
-namespace ValideraFx.Core.Tests.Validators;
+namespace ValideraFx.Web.Tests.Validators;
 
-public class NoOpValidatorTests
+public class FxInternalNoOpValidatorTests
 {
     [Theory, AutoData]
-    internal void Validate_Always_ReturnsValue(object obj, NoOpValidator<object> sut)
+    internal void Validate_Always_ReturnsValue(object obj, FxInternalNoOpValidator<object> sut)
     {
         var untrusted = new UntrustedValue<object>(obj);
         sut.Validate(untrusted).Should().Be(obj);
