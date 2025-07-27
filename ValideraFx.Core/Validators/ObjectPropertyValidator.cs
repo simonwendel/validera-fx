@@ -41,6 +41,6 @@ internal class ObjectPropertyValidator<T, TProp>(Expression<Func<T, TProp>> sele
     /// the nested <see cref="IValidator{TProp}" /> will throw an exception if the validation fails. The nested
     /// validator is thus responsible for providing the error message.
     /// </remarks>
-    /// <throws cref="UnreachableException">This method should never be called.</throws>
+    /// <exception cref="UnreachableException">This method should never be called.</exception>
     private protected override string GetPartialMessage() => throw new UnreachableException();
 }

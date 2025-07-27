@@ -31,6 +31,6 @@ public class Pipeline<T> : Validator<T> where T : notnull
     /// the first nested <see cref="IValidator{TProp}" /> that throws will control the exception. That nested
     /// validator is thus responsible for providing the error message.
     /// </remarks>
-    /// <throws cref="UnreachableException">This method should never be called.</throws>
+    /// <exception cref="UnreachableException">This method should never be called.</exception>
     private protected override string GetPartialMessage() => throw new UnreachableException();
 }
