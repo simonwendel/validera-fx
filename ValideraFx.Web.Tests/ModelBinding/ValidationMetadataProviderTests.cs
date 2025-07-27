@@ -22,7 +22,15 @@ public class ValidationMetadataProviderTests
     }
 
     [Fact]
-    public void CreateValidationMetadata_GivenNonUntrustedValue_DoesNotSetValidateChildrenToFalse()
+    public void CreateValidationMetadata_GivenTrustedValue_SetsValidateChildrenToFalse()
+    {
+        var context = GetContextFor<TrustedValue<object>>();
+        sut.CreateValidationMetadata(context);
+        context.ValidationMetadata.ValidateChildren.Should().BeFalse();
+    }
+
+    [Fact]
+    public void CreateValidationMetadata_GivenNonUntrustedValueNonTrustedValue_DoesNotSetValidateChildrenToFalse()
     {
         var context = GetContextFor<object>();
         sut.CreateValidationMetadata(context);

@@ -11,7 +11,9 @@ internal class ModelValidatorProvider : IModelValidatorProvider
     public void CreateValidators(ModelValidatorProviderContext context)
     {
         var type = context.ModelMetadata.ModelType;
-        if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(UntrustedValue<>))
+        if (!type.IsGenericType
+            || type.GetGenericTypeDefinition() != typeof(UntrustedValue<>)
+            && type.GetGenericTypeDefinition() != typeof(TrustedValue<>))
         {
             return;
         }

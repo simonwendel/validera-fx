@@ -11,7 +11,9 @@ internal class ValidationMetadataProvider : IValidationMetadataProvider
     public void CreateValidationMetadata(ValidationMetadataProviderContext context)
     {
         var type = context.Key.ModelType;
-        if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(UntrustedValue<>))
+        if (type.IsGenericType
+            && (type.GetGenericTypeDefinition() == typeof(UntrustedValue<>)
+                || type.GetGenericTypeDefinition() == typeof(TrustedValue<>)))
         {
             context.ValidationMetadata.ValidateChildren = false;
         }

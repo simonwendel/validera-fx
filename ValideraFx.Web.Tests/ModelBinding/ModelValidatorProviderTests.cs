@@ -17,6 +17,7 @@ public class ModelValidatorProviderTests
     private readonly ModelValidatorProvider sut = new();
     private readonly ModelValidatorProviderContext stringContext;
     private readonly ModelValidatorProviderContext untrustedValueContext;
+    private readonly ModelValidatorProviderContext trustedValueContext;
 
     public ModelValidatorProviderTests()
     {
@@ -28,18 +29,30 @@ public class ModelValidatorProviderTests
 
         var untrustedValueMetadata = GetMetadataFor<UntrustedValue<string>>();
         untrustedValueContext = new ModelValidatorProviderContext(untrustedValueMetadata, validatorList);
+        var trustedValueMetadata = GetMetadataFor<TrustedValue<string>>();
+        trustedValueContext = new ModelValidatorProviderContext(trustedValueMetadata, validatorList);
         var stringMetadata = GetMetadataFor<string>();
         stringContext = new ModelValidatorProviderContext(stringMetadata, validatorList);
     }
 
     [Fact]
-    public void CreateValidators_WithUntrustedValueType_ReplacesAllWithUntrustedValueValidator()
+    public void CreateValidators_WithUntrustedValueType_ReplacesAllWithCustomModelValidator()
     {
         sut.CreateValidators(untrustedValueContext);
         untrustedValueContext.Results.Should()
             .ContainSingle()
             .Which.Validator.Should().BeOfType<NoOpModelValidator>();
         untrustedValueContext.Results.First().IsReusable.Should().BeTrue();
+    }
+
+    [Fact]
+    public void CreateValidators_WithTrustedValueType_ReplacesAllWithCustomModelValidator()
+    {
+        sut.CreateValidators(trustedValueContext);
+        trustedValueContext.Results.Should()
+            .ContainSingle()
+            .Which.Validator.Should().BeOfType<NoOpModelValidator>();
+        trustedValueContext.Results.First().IsReusable.Should().BeTrue();
     }
 
     [Fact]
