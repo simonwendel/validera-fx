@@ -10,4 +10,12 @@ internal class UntrustedModelBinder(
     Type innerType,
     IModelMetadataProvider metadataProvider,
     IModelBinderFactory binderFactory)
-    : ModelBinderBase(typeof(UntrustedValue<>), innerType, metadataProvider, binderFactory);
+    : ModelBinderBase(innerType, metadataProvider, binderFactory)
+{
+    protected override Type GetTypeToBind() => typeof(UntrustedValue<>).MakeGenericType(InnerType);
+
+    protected override object?[] GetConstructorArguments(
+        ModelBindingContext bindingContext,
+        ModelBindingContext nestedContext) =>
+        [nestedContext.Result.Model, bindingContext.ModelMetadata.ParameterName];
+}
