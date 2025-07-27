@@ -40,6 +40,30 @@ public class ElementCountValidatorTests
     }
 
     [Fact]
+    internal void Validate_GivenTooFewElementsExactlyZero_ThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>([]);
+        var sut = new ElementCountValidator<string>(2);
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The list with 0 elements does not have a valid length (must be between 2 and int.MaxValue).");
+    }
+
+    [Fact]
+    internal void Validate_GivenNullEnumerable_TreatsAsZeroAndThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>(null!);
+        var sut = new ElementCountValidator<string>(2);
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The list with 0 elements does not have a valid length (must be between 2 and int.MaxValue).");
+    }
+
+    [Fact]
     internal void Validate_GivenTooFewElementsAndName_ThrowsException()
     {
         var untrusted = new UntrustedValue<IEnumerable<string>>(["a"], "myList");

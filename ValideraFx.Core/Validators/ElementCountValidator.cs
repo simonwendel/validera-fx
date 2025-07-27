@@ -35,11 +35,12 @@ internal class ElementCountValidator<T> : Validator<IEnumerable<T>>
             new IntegerIntervalValidator(minCount, maxCount));
     }
 
-    protected override bool Valid(IEnumerable<T> value, string? name)
+    protected override bool Valid(IEnumerable<T>? value, string? name)
     {
         try
         {
-            elementCountValidator.Validate(new UntrustedValue<IList<T>>(value.ToList(), name));
+            var adjustedValue = value ?? [];
+            elementCountValidator.Validate(new UntrustedValue<IList<T>>(adjustedValue.ToList(), name));
             return true;
         }
         catch (ValidationException)
@@ -50,8 +51,9 @@ internal class ElementCountValidator<T> : Validator<IEnumerable<T>>
 
     protected override string GetValueMessage(UntrustedValue<IEnumerable<T>> untrustedValue)
     {
-        var elementWord = untrustedValue.Value.Count() == 1 ? "element" : "elements";
-        return $"The list with {untrustedValue.Value.Count()} {elementWord}";
+        var count = (untrustedValue.Value ?? []).Count();
+        var elementWord = count == 1 ? "element" : "elements";
+        return $"The list with {count} {elementWord}";
     }
 
     protected override string GetPartialMessage()
