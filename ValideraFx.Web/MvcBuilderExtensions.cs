@@ -11,6 +11,7 @@ public static class MvcBuilderExtensions
 {
     public static IMvcBuilder AddValideraFx(this IMvcBuilder builder)
     {
+        builder.Services.AddSingleton<IValidatorCollection>(new ValidatorCollection(builder.Services));
         builder.Services.Configure<MvcOptions>(options =>
         {
             options.ModelBinderProviders.Insert(0, new ModelBinderProvider());
