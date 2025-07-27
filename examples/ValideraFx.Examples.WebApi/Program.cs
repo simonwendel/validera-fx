@@ -17,9 +17,9 @@ builder.Services.AddTransient(_ => validatorBuilder.Build());
 
 // Or we can build a validator for each type, which is what we do here:
 builder.Services.AddTransient(_ =>
-    Validation.Of<MessageOptions>()
-        .Apply(x => x.Message, Limit.Length(3, 10))
-        .Apply(x => x.NumberOfTimes, Limit.Between(1, 10))
+    Validation.Of<Message>()
+        .Apply(x => x.Text, Limit.Length(3, 10))
+        .Apply(x => x.Repeat, Limit.Between(1, 10))
         .Build());
 
 builder.Services.AddControllers().AddValideraFx();
