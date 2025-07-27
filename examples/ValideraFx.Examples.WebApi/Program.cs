@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 var validatorBuilder = new ValidatorServiceBuilder();
 validatorBuilder.AddValidator(
     Validation.Of<int>()
-        .Apply(x => x, Limit.Between(-10, 10))
+        .Apply(x => x, Limit.Within(-10, 10))
         .Build());
 builder.Services.AddTransient(_ => validatorBuilder.Build());
 
@@ -19,7 +19,7 @@ builder.Services.AddTransient(_ => validatorBuilder.Build());
 builder.Services.AddTransient(_ =>
     Validation.Of<Message>()
         .Apply(x => x.Text, Limit.Length(3, 10))
-        .Apply(x => x.Repeat, Limit.Between(1, 10))
+        .Apply(x => x.Repeat, Limit.Within(1, 10))
         .Build());
 
 builder.Services.AddControllers().AddValideraFx();
