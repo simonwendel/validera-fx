@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ValideraFx.Web.ModelBinding;
 
-internal abstract class ValueBinderBase(
+internal abstract class ModelBinderBase(
     Type outerType,
     Type innerType,
     IModelMetadataProvider metadataProvider,

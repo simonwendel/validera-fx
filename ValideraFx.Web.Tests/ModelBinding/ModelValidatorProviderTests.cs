@@ -12,13 +12,13 @@ using ValideraFx.Web.ModelBinding;
 
 namespace ValideraFx.Web.Tests.ModelBinding;
 
-public class UntrustedValueValidatorProviderTests
+public class ModelValidatorProviderTests
 {
-    private readonly UntrustedValueValidatorProvider sut = new();
+    private readonly ModelValidatorProvider sut = new();
     private readonly ModelValidatorProviderContext stringContext;
     private readonly ModelValidatorProviderContext untrustedValueContext;
 
-    public UntrustedValueValidatorProviderTests()
+    public ModelValidatorProviderTests()
     {
         List<ValidatorItem> validatorList =
         [
@@ -38,7 +38,7 @@ public class UntrustedValueValidatorProviderTests
         sut.CreateValidators(untrustedValueContext);
         untrustedValueContext.Results.Should()
             .ContainSingle()
-            .Which.Validator.Should().BeOfType<UntrustedValueValidator>();
+            .Which.Validator.Should().BeOfType<NoOpModelValidator>();
         untrustedValueContext.Results.First().IsReusable.Should().BeTrue();
     }
 
@@ -47,7 +47,7 @@ public class UntrustedValueValidatorProviderTests
     {
         sut.CreateValidators(stringContext);
         stringContext.Results.Should().HaveCount(2);
-        stringContext.Results.Should().AllSatisfy(x => x.Validator.Should().NotBeOfType<UntrustedValueValidator>());
+        stringContext.Results.Should().AllSatisfy(x => x.Validator.Should().NotBeOfType<NoOpModelValidator>());
     }
 
     private static ModelMetadata GetMetadataFor<T>() => GetDefaultModelMetadataProvider().GetMetadataForType(typeof(T));

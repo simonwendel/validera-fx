@@ -6,7 +6,7 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web.ModelBinding;
 
-internal class UntrustedValueValidationMetadataProvider : IValidationMetadataProvider
+internal class ValidationMetadataProvider : IValidationMetadataProvider
 {
     public void CreateValidationMetadata(ValidationMetadataProviderContext context)
     {

@@ -22,6 +22,6 @@ public class MvcBuilderExtensionsTests
         builder.Object.AddValideraFx();
         var provider = services.BuildServiceProvider();
         var options = provider.GetRequiredService<IOptions<MvcOptions>>().Value;
-        options.ModelBinderProviders[0].Should().BeOfType<UntrustedValueBinderProvider>();
+        options.ModelBinderProviders[0].Should().BeOfType<ModelBinderProvider>();
     }
 }

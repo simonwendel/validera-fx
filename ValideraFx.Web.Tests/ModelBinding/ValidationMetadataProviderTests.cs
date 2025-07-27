@@ -9,9 +9,9 @@ using ValideraFx.Web.ModelBinding;
 
 namespace ValideraFx.Web.Tests.ModelBinding;
 
-public class UntrustedValueValidationMetadataProviderTests
+public class ValidationMetadataProviderTests
 {
-    private readonly UntrustedValueValidationMetadataProvider sut = new();
+    private readonly ValidationMetadataProvider sut = new();
 
     [Fact]
     public void CreateValidationMetadata_GivenUntrustedValue_SetsValidateChildrenToFalse()

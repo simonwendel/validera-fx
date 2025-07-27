@@ -8,7 +8,7 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web.ModelBinding;
 
-internal class ValueBinderProvider : IModelBinderProvider
+internal class ModelBinderProvider : IModelBinderProvider
 {
     private readonly ConcurrentDictionary<Type, IModelBinder> cache = new();
 
@@ -24,13 +24,13 @@ internal class ValueBinderProvider : IModelBinderProvider
             case true when modelType.GetGenericTypeDefinition() == typeof(UntrustedValue<>):
             {
                 var innerType = modelType.GetGenericArguments()[0];
-                var modelBinder = new UntrustedValueBinder(innerType, metadataProvider, binderFactory);
+                var modelBinder = new UntrustedModelBinder(innerType, metadataProvider, binderFactory);
                 return cache.GetOrAdd(modelType, _ => modelBinder);
             }
             case true when modelType.GetGenericTypeDefinition() == typeof(TrustedValue<>):
             {
                 var innerType = modelType.GetGenericArguments()[0];
-                var modelBinder = new TrustedValueBinder(innerType, metadataProvider, binderFactory);
+                var modelBinder = new TrustedModelBinder(innerType, metadataProvider, binderFactory);
                 return cache.GetOrAdd(modelType, _ => modelBinder);
             }
             default:

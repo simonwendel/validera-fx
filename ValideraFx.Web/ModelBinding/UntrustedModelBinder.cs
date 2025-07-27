@@ -6,8 +6,8 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web.ModelBinding;
 
-internal class UntrustedValueBinder(
+internal class UntrustedModelBinder(
     Type innerType,
     IModelMetadataProvider metadataProvider,
     IModelBinderFactory binderFactory)
-    : ValueBinderBase(typeof(UntrustedValue<>), innerType, metadataProvider, binderFactory);
+    : ModelBinderBase(typeof(UntrustedValue<>), innerType, metadataProvider, binderFactory);

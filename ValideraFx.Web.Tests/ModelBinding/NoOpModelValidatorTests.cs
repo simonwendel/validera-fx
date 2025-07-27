@@ -11,9 +11,9 @@ using ValideraFx.Web.ModelBinding;
 
 namespace ValideraFx.Web.Tests.ModelBinding;
 
-public class UntrustedValueValidatorTests
+public class NoOpModelValidatorTests
 {
-    private readonly UntrustedValueValidator sut = new();
+    private readonly NoOpModelValidator sut = new();
 
     [Fact]
     internal void Validate_GivenUntrustedValueContext_ReturnsEmptyResults()

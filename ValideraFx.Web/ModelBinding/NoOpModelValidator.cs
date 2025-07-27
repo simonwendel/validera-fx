@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace ValideraFx.Web.ModelBinding;
 
-internal class UntrustedValueValidator : IModelValidator
+internal class NoOpModelValidator : IModelValidator
 {
     public IEnumerable<ModelValidationResult> Validate(ModelValidationContext context) => [];
 }

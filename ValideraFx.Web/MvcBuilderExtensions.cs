@@ -13,9 +13,9 @@ public static class MvcBuilderExtensions
     {
         builder.Services.Configure<MvcOptions>(options =>
         {
-            options.ModelBinderProviders.Insert(0, new UntrustedValueBinderProvider());
-            options.ModelValidatorProviders.Insert(0, new UntrustedValueValidatorProvider());
-            options.ModelMetadataDetailsProviders.Add(new UntrustedValueValidationMetadataProvider());
+            options.ModelBinderProviders.Insert(0, new ModelBinderProvider());
+            options.ModelValidatorProviders.Insert(0, new ModelValidatorProvider());
+            options.ModelMetadataDetailsProviders.Add(new ValidationMetadataProvider());
         });
 
         return builder;

@@ -6,7 +6,7 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web.ModelBinding;
 
-internal class UntrustedValueValidatorProvider : IModelValidatorProvider
+internal class ModelValidatorProvider : IModelValidatorProvider
 {
     public void CreateValidators(ModelValidatorProviderContext context)
     {
@@ -19,7 +19,7 @@ internal class UntrustedValueValidatorProvider : IModelValidatorProvider
         context.Results.Clear();
         context.Results.Add(new ValidatorItem
         {
-            Validator = new UntrustedValueValidator(),
+            Validator = new NoOpModelValidator(),
             IsReusable = true
         });
     }
