@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc.Internal;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using ValideraFx.Core;
+using ValideraFx.Web.ModelBinding;
 
-namespace ValideraFx.Web.Tests;
+namespace ValideraFx.Web.Tests.ModelBinding;
 
 public class UntrustedValueValidatorTests
 {

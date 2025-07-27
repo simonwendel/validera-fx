@@ -1,10 +1,10 @@
 // SPDX-FileCopyrightText: 2025 Simon Wendel
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
-using ValideraFx.Core;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using ValideraFx.Core;
 
-namespace ValideraFx.Web;
+namespace ValideraFx.Web.ModelBinding;
 
 internal class UntrustedValueValidatorProvider : IModelValidatorProvider
 {

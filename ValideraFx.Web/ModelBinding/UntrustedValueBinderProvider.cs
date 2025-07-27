@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.DependencyInjection;
 using ValideraFx.Core;
 
-namespace ValideraFx.Web;
+namespace ValideraFx.Web.ModelBinding;
 
 internal class UntrustedValueBinderProvider : IModelBinderProvider
 {

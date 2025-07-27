@@ -3,7 +3,7 @@
 
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace ValideraFx.Web;
+namespace ValideraFx.Web.ModelBinding;
 
 internal class UntrustedValueValidator : IModelValidator
 {

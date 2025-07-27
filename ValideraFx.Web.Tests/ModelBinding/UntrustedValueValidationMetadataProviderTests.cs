@@ -5,8 +5,9 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using ValideraFx.Core;
+using ValideraFx.Web.ModelBinding;
 
-namespace ValideraFx.Web.Tests;
+namespace ValideraFx.Web.Tests.ModelBinding;
 
 public class UntrustedValueValidationMetadataProviderTests
 {

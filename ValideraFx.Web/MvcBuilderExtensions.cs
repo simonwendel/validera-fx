@@ -3,6 +3,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using ValideraFx.Web.ModelBinding;
 
 namespace ValideraFx.Web;
 

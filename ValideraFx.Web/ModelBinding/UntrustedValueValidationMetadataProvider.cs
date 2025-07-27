@@ -4,7 +4,7 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using ValideraFx.Core;
 
-namespace ValideraFx.Web;
+namespace ValideraFx.Web.ModelBinding;
 
 internal class UntrustedValueValidationMetadataProvider : IValidationMetadataProvider
 {
