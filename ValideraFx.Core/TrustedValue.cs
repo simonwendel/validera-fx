@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core;
 
-public class TrustedValue<T> where T : notnull
+public sealed class TrustedValue<T> where T : notnull
 {
     public TrustedValue(UntrustedValue<T> value, IValidator<T> validator)
     {

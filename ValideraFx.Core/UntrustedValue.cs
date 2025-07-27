@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core;
 
-public class UntrustedValue<T>(T value, string? name = null)
+public sealed class UntrustedValue<T>(T value, string? name = null)
     where T : notnull
 {
     internal T Value { get; } = value;
