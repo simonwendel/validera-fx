@@ -7,7 +7,7 @@ public class UntrustedValue<T>(T value, string? name = null)
     where T : notnull
 {
     internal T Value { get; } = value;
-    
+
     internal string? Name { get; } = name;
 
     public sealed override bool Equals(object? obj)
@@ -31,6 +31,16 @@ public class UntrustedValue<T>(T value, string? name = null)
     /// exception and is sealed to prevent such silliness.
     /// </remarks>>
     /// <exception cref="InvalidOperationException">Always.</exception>
-    public sealed override string ToString()
-        => throw new InvalidOperationException("Bypassing validation by calling ToString() is not allowed.");
+    public sealed override string ToString() => FormatType(GetType());
+
+    private static string FormatType(Type type)
+    {
+        if (!type.IsGenericType)
+        {
+            return type.FullName ?? type.Name;
+        }
+
+        var arguments = type.GetGenericArguments().Select(argument => $"{FormatType(argument)}");
+        return $"{type.Name}[{string.Join(",", arguments)}]";
+    }
 }

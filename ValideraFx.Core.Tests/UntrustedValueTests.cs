@@ -47,10 +47,11 @@ public class UntrustedValueTests
     }
 
     [Fact]
-    internal void ToString_Always_ThrowsExceptionInsteadOfReturningValue()
+    internal void ToString_Always_HidesUnderlyingType()
     {
-        var rendering = () => sut.ToString();
-        rendering.Should().Throw<InvalidOperationException>();
+        const string expected = "UntrustedValue`1[ValideraFx.Core.Tests.UntrustedValueTests+SuperSecretTestClass]";
+        var actual = sut.ToString();
+        actual.Should().Be(expected);
         value.ToStringCalled.Should().BeFalse();
     }
 
