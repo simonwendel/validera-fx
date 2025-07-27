@@ -15,10 +15,16 @@ internal class ModelBinderProvider : IModelBinderProvider
     public IModelBinder? GetBinder(ModelBinderProviderContext? context)
     {
         ArgumentNullException.ThrowIfNull(context);
+
         var metadataProvider = context.Services.GetRequiredService<IModelMetadataProvider>();
         var binderFactory = context.Services.GetRequiredService<IModelBinderFactory>();
 
         var modelType = context.Metadata.ModelType;
+        if (cache.TryGetValue(modelType, out var cachedBinder))
+        {
+            return cachedBinder;
+        }
+
         switch (modelType.IsGenericType)
         {
             case true when modelType.GetGenericTypeDefinition() == typeof(UntrustedValue<>):

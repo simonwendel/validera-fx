@@ -45,7 +45,23 @@ public class ModelBinderProviderTests
         var binder = sut.GetBinder(context);
         binder.Should().BeOfType<TrustedModelBinder>();
     }
-    
+
+    [Fact]
+    public void GetBinder_WhenCalledTwiceOnContextWithUntrustedValueBinder_ReturnsSameValueBinder()
+    {
+        var first = sut.GetBinder(GetModelBinderProviderContext<UntrustedValue<string>>());
+        var second = sut.GetBinder(GetModelBinderProviderContext<UntrustedValue<string>>());
+        second.Should().BeSameAs(first);
+    }
+
+    [Fact]
+    public void GetBinder_WhenCalledTwiceOnContextWithTrustedValueBinder_ReturnsSameValueBinder()
+    {
+        var first = sut.GetBinder(GetModelBinderProviderContext<TrustedValue<string>>());
+        var second = sut.GetBinder(GetModelBinderProviderContext<TrustedValue<string>>());
+        second.Should().BeSameAs(first);
+    }
+
     private static ModelBinderProviderContext GetModelBinderProviderContext<T>()
     {
         var mockContext = new Mock<ModelBinderProviderContext>();
