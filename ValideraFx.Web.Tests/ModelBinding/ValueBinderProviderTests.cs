@@ -11,9 +11,9 @@ using ValideraFx.Web.ModelBinding;
 
 namespace ValideraFx.Web.Tests.ModelBinding;
 
-public class UntrustedValueBinderProviderTests
+public class ValueBinderProviderTests
 {
-    private readonly UntrustedValueBinderProvider sut = new();
+    private readonly ValueBinderProvider sut = new();
 
     [Fact]
     public void GetBinder_GivenNullContext_ThrowsException()
@@ -23,7 +23,7 @@ public class UntrustedValueBinderProviderTests
     }
 
     [Fact]
-    public void GetBinder_GivenContextNotWithUntrustedValueBinder_ReturnsNull()
+    public void GetBinder_GivenContextNotWithUntrustedValueOrTrustedValue_ReturnsNull()
     {
         var context = GetModelBinderProviderContext<string>();
         var binder = sut.GetBinder(context);
@@ -36,6 +36,14 @@ public class UntrustedValueBinderProviderTests
         var context = GetModelBinderProviderContext<UntrustedValue<string>>();
         var binder = sut.GetBinder(context);
         binder.Should().BeOfType<UntrustedValueBinder>();
+    }
+
+    [Fact]
+    public void GetBinder_GivenContextWithTrustedValueBinder_ReturnsValueBinder()
+    {
+        var context = GetModelBinderProviderContext<TrustedValue<string>>();
+        var binder = sut.GetBinder(context);
+        binder.Should().BeOfType<TrustedValueBinder>();
     }
     
     private static ModelBinderProviderContext GetModelBinderProviderContext<T>()
