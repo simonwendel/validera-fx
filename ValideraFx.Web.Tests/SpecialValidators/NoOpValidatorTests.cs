@@ -4,9 +4,9 @@
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using ValideraFx.Core;
-using ValideraFx.Web.Validators;
+using ValideraFx.Web.SpecialValidators;
 
-namespace ValideraFx.Web.Tests.Validators;
+namespace ValideraFx.Web.Tests.SpecialValidators;
 
 public class NoOpValidatorTests
 {

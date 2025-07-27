@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using ValideraFx.Core.Validators;
 
-namespace ValideraFx.Web.Validators;
+namespace ValideraFx.Web.SpecialValidators;
 
 /// <remarks>This type should <b>never</b> be used outside the framework.</remarks>
 internal class NoOpValidator<T> : Validator<T> where T : notnull
