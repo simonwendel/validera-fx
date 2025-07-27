@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Core;
 
-public interface IValidator<T> where T : notnull
+public interface IValidator<T> where T : notnull 
 {
     T Validate(UntrustedValue<T> untrustedValue);
 }
