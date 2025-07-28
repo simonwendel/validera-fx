@@ -11,9 +11,16 @@ public static class MvcBuilderExtensions
 {
     public static IMvcBuilder AddValideraFx(this IMvcBuilder builder)
     {
+        AddGlobalValidationForMvc(builder);
         AddValidatorRegistry(builder);
         AddModelBinders(builder);
         return builder;
+    }
+
+    private static void AddGlobalValidationForMvc(IMvcBuilder builder)
+    {
+        builder.Services.Configure<MvcOptions>(options =>
+            options.Filters.Add(new AutoValidateModelStateForMvcOnlyFilter()));
     }
 
     private static void AddValidatorRegistry(IMvcBuilder builder)
