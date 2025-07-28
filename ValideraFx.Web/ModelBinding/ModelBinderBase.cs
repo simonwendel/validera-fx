@@ -52,6 +52,7 @@ internal abstract class ModelBinderBase(
             {
                 bindingContext.ModelState.AddModelError(validationException.ValidatedName,
                     validationException.ValidationMessage);
+                bindingContext.Result = ModelBindingResult.Failed();
             }
         }
     }
