@@ -29,7 +29,7 @@ internal class ObjectValidator<T, TProp>(Expression<Func<T, TProp>> selector, IV
                 var prefix = name != null ? $"{name}." : string.Empty;
                 return $"{prefix}{member.Member.Name}";
             case ParameterExpression:
-                return typeof(TProp).IsPrimitive
+                return typeof(TProp).IsPrimitive || typeof(TProp) == typeof(string)
                     ? (name != null ? $"{name}" : string.Empty)
                     : throw new ArgumentException("Bare parameter allowed only for primitive types");
             default:
