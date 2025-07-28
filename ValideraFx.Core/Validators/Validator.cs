@@ -15,8 +15,11 @@ public abstract class Validator<T> : IValidator<T> where T : notnull
     protected virtual string GetValidationMessage(UntrustedValue<T> untrustedValue) =>
         $"{GetValueMessage(untrustedValue)} {GetPartialMessage()}.";
 
-    protected virtual string GetValueMessage(UntrustedValue<T> untrustedValue) =>
-        $"The value '{untrustedValue.Value}'";
+    protected virtual string GetValueMessage(UntrustedValue<T> untrustedValue)
+    {
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+        return untrustedValue.Value is null ? "The null value" : $"The value '{untrustedValue.Value}'";
+    }
 
     protected abstract string GetPartialMessage();
 

@@ -24,9 +24,9 @@ internal class StringLengthValidator : Validator<string>
         this.minLength = minLength;
         this.maxLength = maxLength;
 
-        stringValidator = new ObjectValidator<string, int>(
-            x => x.Length,
-            new IntegerIntervalValidator(minLength, maxLength));
+        stringValidator = new Pipeline<string>(
+            new NotNullObjectValidator<string>(),
+            new ObjectValidator<string, int>(x => x.Length, new IntegerIntervalValidator(minLength, maxLength)));
     }
 
     protected override bool Valid(string value, string? name)
