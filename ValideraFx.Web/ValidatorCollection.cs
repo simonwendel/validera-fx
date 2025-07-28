@@ -8,12 +8,40 @@ namespace ValideraFx.Web;
 
 public class ValidatorCollection : IValidatorCollection
 {
-    private readonly Dictionary<Type, Type> validators = new();
+    private readonly IServiceCollection services;
+    private Dictionary<Type, Type>? validators = null;
 
-    public ValidatorCollection(IServiceCollection services)
+    public ValidatorCollection(IServiceCollection services, bool eagerLoad)
     {
         ArgumentNullException.ThrowIfNull(services);
+        this.services = services;
+        if (eagerLoad)
+        {
+            LoadValidators();
+        }
+    }
 
+    public object? GetValidatorFor(Type type, IServiceProvider serviceProvider)
+    {
+        ArgumentNullException.ThrowIfNull(type);
+        ArgumentNullException.ThrowIfNull(serviceProvider);
+
+        if (validators is null)
+        {
+            LoadValidators();
+        }
+
+        if (validators!.TryGetValue(type, out var validatorType))
+        {
+            return serviceProvider.GetService(validatorType);
+        }
+
+        throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
+    }
+
+    private void LoadValidators()
+    {
+        validators = new Dictionary<Type, Type>();
         foreach (var descriptor in services)
         {
             if (!descriptor.ServiceType.IsGenericType ||
@@ -25,18 +53,5 @@ public class ValidatorCollection : IValidatorCollection
             var innerType = descriptor.ServiceType.GetGenericArguments()[0];
             validators[innerType] = descriptor.ServiceType;
         }
-    }
-
-    public object? GetValidatorFor(Type type, IServiceProvider serviceProvider)
-    {
-        ArgumentNullException.ThrowIfNull(type);
-        ArgumentNullException.ThrowIfNull(serviceProvider);
-
-        if (validators.TryGetValue(type, out var validatorType))
-        {
-            return serviceProvider.GetService(validatorType);
-        }
-
-        throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
     }
 }

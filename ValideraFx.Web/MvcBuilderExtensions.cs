@@ -13,13 +13,9 @@ public static class MvcBuilderExtensions
 {
     public static IMvcBuilder AddValideraFx(this IMvcBuilder builder, Action<ValidationOptions>? configure = null)
     {
-        var config = ApplyConfiguration(builder, configure);
-        if (config.EnforceValidModelState)
-        {
-            AddGlobalValidationForMvc(builder);
-        }
-
-        AddValidatorRegistry(builder);
+        var options = ApplyConfiguration(builder, configure);
+        AddGlobalValidationForMvc(builder, options);
+        AddValidatorRegistry(builder, options);
         AddModelBinders(builder);
         return builder;
     }
@@ -37,15 +33,18 @@ public static class MvcBuilderExtensions
         return builder.Services.BuildServiceProvider().GetRequiredService<IOptions<ValidationOptions>>().Value;
     }
 
-    private static void AddGlobalValidationForMvc(IMvcBuilder builder)
+    private static void AddGlobalValidationForMvc(IMvcBuilder builder, ValidationOptions options)
     {
-        builder.Services.Configure<MvcOptions>(options =>
-            options.Filters.Add(new AutoValidateModelStateForMvcOnlyFilter()));
+        if (options.EnforceValidModelState)
+        {
+            builder.Services.Configure<MvcOptions>(mvcOptions =>
+                mvcOptions.Filters.Add(new AutoValidateModelStateForMvcOnlyFilter()));
+        }
     }
 
-    private static void AddValidatorRegistry(IMvcBuilder builder)
+    private static void AddValidatorRegistry(IMvcBuilder builder, ValidationOptions options)
     {
-        builder.Services.AddSingleton<IValidatorCollection>(new ValidatorCollection(builder.Services));
+        builder.Services.AddSingleton<IValidatorCollection>(new ValidatorCollection(builder.Services, options.EagerLoadValidators));
     }
 
     private static void AddModelBinders(IMvcBuilder builder)
