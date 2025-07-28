@@ -6,7 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace ValideraFx.Web.Tests.Integrations;
+namespace ValideraFx.IntegrationTests.WebApi;
 
 public class ShuffleTests(WebApplicationFactory<Program> factory) : IClassFixture<WebApplicationFactory<Program>>
 {

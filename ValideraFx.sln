@@ -1,10 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integrationTests", "integrationTests", "{13B7139E-2034-4A12-BA1D-ABF5188D4459}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{068999AD-D770-4D93-920D-4BC706858295}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core", "ValideraFx.Core\ValideraFx.Core.csproj", "{8A226FFA-3C98-4050-9FAB-445C8A6047AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Core.Tests", "ValideraFx.Core.Tests\ValideraFx.Core.Tests.csproj", "{8C34BF9F-6F20-48C5-A00B-E5F36A559818}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{068999AD-D770-4D93-920D-4BC706858295}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Examples.WebApi", "examples\ValideraFx.Examples.WebApi\ValideraFx.Examples.WebApi.csproj", "{6140CC2A-B888-481B-8BF1-0CBF6F0CE769}"
 EndProject
@@ -12,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web", "ValideraF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web.Tests", "ValideraFx.Web.Tests\ValideraFx.Web.Tests.csproj", "{97713B57-70C2-46AD-AE22-2652EB1573DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Web.Tests.Integrations", "ValideraFx.Web.Tests.Integrations\ValideraFx.Web.Tests.Integrations.csproj", "{50EF17F1-4B01-4DE4-81F1-04E84056887D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.IntegrationTests.WebApi", "integrationTests\ValideraFx.IntegrationTests.WebApi\ValideraFx.IntegrationTests.WebApi.csproj", "{50EF17F1-4B01-4DE4-81F1-04E84056887D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

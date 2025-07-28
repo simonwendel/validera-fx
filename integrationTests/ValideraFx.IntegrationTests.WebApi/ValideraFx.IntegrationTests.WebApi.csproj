@@ -25,7 +25,8 @@ SPDX-License-Identifier: LGPL-3.0-or-later
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\examples\ValideraFx.Examples.WebApi\ValideraFx.Examples.WebApi.csproj" />
+      <ProjectReference Include="..\..\examples\ValideraFx.Examples.WebApi\ValideraFx.Examples.WebApi.csproj" />
+      <ProjectReference Include="..\..\ValideraFx.Web\ValideraFx.Web.csproj" />
     </ItemGroup>
 
 </Project>
