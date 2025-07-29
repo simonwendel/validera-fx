@@ -6,12 +6,12 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web;
 
-public class ValidatorCollection : IValidatorCollection
+public class ValidatorRegistry : IValidatorRegistry
 {
     private readonly IServiceCollection services;
     private Dictionary<Type, Type>? validators = null;
 
-    public ValidatorCollection(IServiceCollection services)
+    public ValidatorRegistry(IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
         this.services = services;
@@ -24,7 +24,7 @@ public class ValidatorCollection : IValidatorCollection
 
         if (validators is null)
         {
-            PopulateCollection();
+            PopulateRegistry();
         }
 
         if (validators!.TryGetValue(type, out var validatorType))
@@ -35,7 +35,7 @@ public class ValidatorCollection : IValidatorCollection
         throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
     }
 
-    public void PopulateCollection()
+    public void PopulateRegistry()
     {
         validators = new Dictionary<Type, Type>();
         foreach (var descriptor in services)

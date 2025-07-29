@@ -44,7 +44,7 @@ public static class MvcBuilderExtensions
 
     private static void AddValidatorRegistry(IMvcBuilder builder, ValidationOptions options)
     {
-        builder.Services.AddSingleton<IValidatorCollection>(new ValidatorCollection(builder.Services));
+        builder.Services.AddSingleton<IValidatorRegistry>(new ValidatorRegistry(builder.Services));
     }
 
     private static void AddModelBinders(IMvcBuilder builder)

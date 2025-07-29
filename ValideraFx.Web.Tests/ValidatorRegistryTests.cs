@@ -8,19 +8,19 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web.Tests;
 
-public class ValidatorCollectionTests
+public class ValidatorRegistryTests
 {
     [Fact]
     public void Ctor_GivenNullServiceCollection_ThrowsArgumentNullException()
     {
-        Action constructing = () => new ValidatorCollection(null!);
+        Action constructing = () => new ValidatorRegistry(null!);
         constructing.Should().Throw<ArgumentNullException>().WithParameterName("services");
     }
 
     [Fact]
     public void GetValidatorFor_GivenNullServiceProvider_ThrowsArgumentNullException()
     {
-        var sut = new ValidatorCollection(new ServiceCollection());
+        var sut = new ValidatorRegistry(new ServiceCollection());
         Action getting = () => sut.GetValidatorFor(typeof(object), null!);
         getting.Should().Throw<ArgumentNullException>().WithParameterName("serviceProvider");
     }
@@ -28,7 +28,7 @@ public class ValidatorCollectionTests
     [Fact]
     public void GetValidatorFor_GivenNullType_ThrowsArgumentNullException()
     {
-        var sut = new ValidatorCollection(new ServiceCollection());
+        var sut = new ValidatorRegistry(new ServiceCollection());
         Action getting = () => sut.GetValidatorFor(null!, new ServiceCollection().BuildServiceProvider());
         getting.Should().Throw<ArgumentNullException>().WithParameterName("type");
     }
@@ -36,7 +36,7 @@ public class ValidatorCollectionTests
     [Fact]
     public void GetValidatorFor_WhenValidatorNotRegisteredForType_ThrowsArgumentNullException()
     {
-        var sut = new ValidatorCollection(new ServiceCollection());
+        var sut = new ValidatorRegistry(new ServiceCollection());
         Action getting = () => sut.GetValidatorFor(typeof(long), new ServiceCollection().BuildServiceProvider());
         getting.Should().Throw<InvalidOperationException>()
             .WithMessage("No suitable validator for type System.Int64 found.");
@@ -56,7 +56,7 @@ public class ValidatorCollectionTests
         var validator3 = Validation.Of<SomeType>().Apply(x => x.Message, Limit.Length(10)).Build();
         services.AddScoped<IValidator<SomeType>>(_ => validator3);
 
-        var sut = new ValidatorCollection(services);
+        var sut = new ValidatorRegistry(services);
         var provider = services.BuildServiceProvider();
 
         sut.GetValidatorFor(typeof(int), provider)!.GetType().Should().Be(validator1.GetType());

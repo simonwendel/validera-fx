@@ -19,7 +19,7 @@ internal class TrustedModelBinder(
         ModelBindingContext nestedContext)
     {
         var services = bindingContext.HttpContext.RequestServices;
-        if (services.GetService(typeof(IValidatorCollection)) is not IValidatorCollection validators)
+        if (services.GetService(typeof(IValidatorRegistry)) is not IValidatorRegistry validators)
         {
             throw new InvalidOperationException("IValidatorCollection is not registered in the service collection.");
         }
