@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2025 Simon Wendel
+// SPDX-License-Identifier: LGPL-3.0-or-later
+
 using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
