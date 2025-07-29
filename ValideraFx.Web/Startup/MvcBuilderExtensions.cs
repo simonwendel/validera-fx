@@ -1,6 +1,7 @@
 ﻿// SPDX-FileCopyrightText: 2025 Simon Wendel
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -15,6 +16,7 @@ public static class MvcBuilderExtensions
     {
         var options = ApplyConfiguration(builder, configure);
         AddGlobalValidationForMvc(builder, options);
+        AddStartupFilters(builder);
         AddValidatorRegistry(builder, options);
         AddModelBinders(builder);
         return builder;
@@ -40,6 +42,11 @@ public static class MvcBuilderExtensions
             builder.Services.Configure<MvcOptions>(mvcOptions =>
                 mvcOptions.Filters.Add(new AutoValidateModelStateForMvcOnlyFilter()));
         }
+    }
+
+    private static void AddStartupFilters(IMvcBuilder builder)
+    {
+        builder.Services.AddSingleton<IStartupFilter, ValidatorRegistryLoaderStartupFilter>();
     }
 
     private static void AddValidatorRegistry(IMvcBuilder builder, ValidationOptions options)

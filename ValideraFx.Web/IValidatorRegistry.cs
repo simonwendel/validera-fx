@@ -5,7 +5,7 @@ namespace ValideraFx.Web;
 
 public interface IValidatorRegistry
 {
-    void PopulateRegistry();
+    void Load();
     
     object? GetValidatorFor(Type type, IServiceProvider serviceProvider);
 }

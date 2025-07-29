@@ -24,7 +24,7 @@ public class ValidatorRegistry : IValidatorRegistry
 
         if (validators is null)
         {
-            PopulateRegistry();
+            Load();
         }
 
         if (validators!.TryGetValue(type, out var validatorType))
@@ -35,7 +35,7 @@ public class ValidatorRegistry : IValidatorRegistry
         throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
     }
 
-    public void PopulateRegistry()
+    public void Load()
     {
         validators = new Dictionary<Type, Type>();
         foreach (var descriptor in services)
