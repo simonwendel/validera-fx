@@ -7,8 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Moq;
 using ValideraFx.Web.ModelBinding;
+using ValideraFx.Web.Startup;
 
-namespace ValideraFx.Web.Tests;
+namespace ValideraFx.Web.Tests.Startup;
 
 public class MvcBuilderExtensionsTests
 {

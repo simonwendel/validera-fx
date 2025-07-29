@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using ValideraFx.Web.ModelBinding;
 
-namespace ValideraFx.Web;
+namespace ValideraFx.Web.Startup;
 
 public static class MvcBuilderExtensions
 {
@@ -44,7 +44,7 @@ public static class MvcBuilderExtensions
 
     private static void AddValidatorRegistry(IMvcBuilder builder, ValidationOptions options)
     {
-        builder.Services.AddSingleton<IValidatorCollection>(new ValidatorCollection(builder.Services, options.EagerLoadValidators));
+        builder.Services.AddSingleton<IValidatorCollection>(new ValidatorCollection(builder.Services));
     }
 
     private static void AddModelBinders(IMvcBuilder builder)

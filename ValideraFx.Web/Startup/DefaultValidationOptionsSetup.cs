@@ -1,6 +1,6 @@
 using Microsoft.Extensions.Options;
 
-namespace ValideraFx.Web;
+namespace ValideraFx.Web.Startup;
 
 public class DefaultValidationOptionsSetup : IConfigureOptions<ValidationOptions>
 {

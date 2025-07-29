@@ -4,7 +4,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ValideraFx.Core;
 using ValideraFx.Examples.WebApi.Controllers;
-using ValideraFx.Web;
+using ValideraFx.Web.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
