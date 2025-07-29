@@ -5,5 +5,7 @@ namespace ValideraFx.Web;
 
 public interface IValidatorCollection
 {
+    void PopulateCollection();
+    
     object? GetValidatorFor(Type type, IServiceProvider serviceProvider);
 }

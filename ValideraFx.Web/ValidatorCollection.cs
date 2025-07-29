@@ -11,14 +11,10 @@ public class ValidatorCollection : IValidatorCollection
     private readonly IServiceCollection services;
     private Dictionary<Type, Type>? validators = null;
 
-    public ValidatorCollection(IServiceCollection services, bool eagerLoad)
+    public ValidatorCollection(IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
         this.services = services;
-        if (eagerLoad)
-        {
-            LoadValidators();
-        }
     }
 
     public object? GetValidatorFor(Type type, IServiceProvider serviceProvider)
@@ -28,7 +24,7 @@ public class ValidatorCollection : IValidatorCollection
 
         if (validators is null)
         {
-            LoadValidators();
+            PopulateCollection();
         }
 
         if (validators!.TryGetValue(type, out var validatorType))
@@ -39,7 +35,7 @@ public class ValidatorCollection : IValidatorCollection
         throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
     }
 
-    private void LoadValidators()
+    public void PopulateCollection()
     {
         validators = new Dictionary<Type, Type>();
         foreach (var descriptor in services)
