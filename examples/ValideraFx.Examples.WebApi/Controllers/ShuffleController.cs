@@ -19,5 +19,5 @@ public class ShuffleController : ControllerBase
 
 public class ShuffleRequest
 {
-    public IEnumerable<string> Items { get; set; }
+    public required IEnumerable<string> Items { get; set; }
 }
