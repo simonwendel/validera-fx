@@ -3,9 +3,8 @@
 
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using ValideraFx.Web.Startup;
 
-namespace ValideraFx.Web.Tests.Startup;
+namespace ValideraFx.Web.Tests;
 
 public class DefaultValidationOptionsSetupTests
 {
@@ -15,5 +14,13 @@ public class DefaultValidationOptionsSetupTests
         var options = new ValidationOptions();
         sut.Configure(options);
         options.EnforceValidModelState.Should().BeTrue();
+    }
+    
+    [Theory, AutoData]
+    public void Configure_GivenOptions_SetsEnforceValidatedTypesToFalse(DefaultValidationOptionsSetup sut)
+    {
+        var options = new ValidationOptions();
+        sut.Configure(options);
+        options.EnforceValidatedTypes.Should().BeFalse();
     }
 }

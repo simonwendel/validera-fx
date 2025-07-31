@@ -20,6 +20,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Examples.Mvc.Exp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.IntegrationTests.Mvc.ExplicitTrust", "integrationTests\ValideraFx.IntegrationTests.Mvc.ExplicitTrust\ValideraFx.IntegrationTests.Mvc.ExplicitTrust.csproj", "{F64AA0D3-204B-4E61-84CD-12A96B06AB7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.Examples.WebApi.EnforceValidatedTypes", "examples\ValideraFx.Examples.WebApi.EnforceValidatedTypes\ValideraFx.Examples.WebApi.EnforceValidatedTypes.csproj", "{D3A1C48F-9862-46C0-BDBC-BB36F34D4358}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValideraFx.IntegrationTests.WebApi.EnforceValidatedTypes", "integrationTests\ValideraFx.IntegrationTests.WebApi.EnforceValidatedTypes\ValideraFx.IntegrationTests.WebApi.EnforceValidatedTypes.csproj", "{EE5567ED-B82E-471D-BABD-F12CF3B18532}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,11 +62,21 @@ Global
 		{F64AA0D3-204B-4E61-84CD-12A96B06AB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F64AA0D3-204B-4E61-84CD-12A96B06AB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F64AA0D3-204B-4E61-84CD-12A96B06AB7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3A1C48F-9862-46C0-BDBC-BB36F34D4358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3A1C48F-9862-46C0-BDBC-BB36F34D4358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3A1C48F-9862-46C0-BDBC-BB36F34D4358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3A1C48F-9862-46C0-BDBC-BB36F34D4358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE5567ED-B82E-471D-BABD-F12CF3B18532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5567ED-B82E-471D-BABD-F12CF3B18532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5567ED-B82E-471D-BABD-F12CF3B18532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5567ED-B82E-471D-BABD-F12CF3B18532}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6140CC2A-B888-481B-8BF1-0CBF6F0CE769} = {068999AD-D770-4D93-920D-4BC706858295}
 		{DE4AA395-BEAF-4C41-A7CC-6457DE00A5E6} = {068999AD-D770-4D93-920D-4BC706858295}
 		{50EF17F1-4B01-4DE4-81F1-04E84056887D} = {13B7139E-2034-4A12-BA1D-ABF5188D4459}
 		{F64AA0D3-204B-4E61-84CD-12A96B06AB7C} = {13B7139E-2034-4A12-BA1D-ABF5188D4459}
+		{D3A1C48F-9862-46C0-BDBC-BB36F34D4358} = {068999AD-D770-4D93-920D-4BC706858295}
+		{EE5567ED-B82E-471D-BABD-F12CF3B18532} = {13B7139E-2034-4A12-BA1D-ABF5188D4459}
 	EndGlobalSection
 EndGlobal

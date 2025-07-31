@@ -16,7 +16,7 @@ public static class MvcBuilderExtensions
     {
         var options = ApplyConfiguration(builder, configure);
         AddGlobalValidationForMvc(builder, options);
-        AddStartupFilters(builder);
+        AddStartupFilters(builder, options);
         AddValidatorRegistry(builder, options);
         AddModelBinders(builder);
         return builder;
@@ -44,9 +44,17 @@ public static class MvcBuilderExtensions
         }
     }
 
-    private static void AddStartupFilters(IMvcBuilder builder)
+    private static void AddStartupFilters(IMvcBuilder builder, ValidationOptions options)
     {
         builder.Services.AddSingleton<IStartupFilter, ValidatorRegistryLoaderStartupFilter>();
+        
+        if (!options.EnforceValidatedTypes)
+        {
+            return;
+        }
+
+        builder.Services.AddSingleton<IMvcControllerScanner, MvcControllerScanner>();
+        builder.Services.AddSingleton<IStartupFilter, ControllerScannerStartupFilter>();
     }
 
     private static void AddValidatorRegistry(IMvcBuilder builder, ValidationOptions options)
