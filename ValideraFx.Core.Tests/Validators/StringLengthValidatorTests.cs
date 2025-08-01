@@ -73,6 +73,20 @@ public class StringLengthValidatorTests
                 $"Validation failed. The value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
     }
 
+    [Fact]
+    internal void Validate_GivenTooWayLongString_ThrowsExceptionWithTruncatedValue()
+    {
+        const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
+        const string renderedValue = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz...";
+        var untrusted = new UntrustedValue<string>(value);
+        var sut = new StringLengthValidator(6, 20);
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value '{renderedValue}' does not have a valid length (must be between 6 and 20).");
+    }
+
     [Theory]
     [InlineAutoData("12", 0, 1)]
     [InlineAutoData("_1_2_3_4", 2, 4)]
@@ -86,6 +100,20 @@ public class StringLengthValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
+    }
+
+    [Fact]
+    internal void Validate_GivenTooWayLongStringAndName_ThrowsExceptionWithTruncatedValue()
+    {
+        const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
+        const string renderedValue = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz...";
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        var sut = new StringLengthValidator(6, 20);
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value '{renderedValue}' does not have a valid length (must be between 6 and 20).");
     }
 
     [Fact]

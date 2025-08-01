@@ -5,6 +5,7 @@ namespace ValideraFx.Core.Validators;
 
 internal class StringLengthValidator : Validator<string>
 {
+    private const int DefaultMaxLengthToRender = 60;
     private readonly int minLength;
     private readonly int maxLength;
     private readonly Validator<string> stringValidator;
@@ -40,6 +41,13 @@ internal class StringLengthValidator : Validator<string>
         {
             return false;
         }
+    }
+    
+    protected override string GetValueMessage(UntrustedValue<string> untrustedValue)
+    {
+        var value = untrustedValue.Value;
+        var renderedValue = value.Length > DefaultMaxLengthToRender ? string.Concat(value.AsSpan(0, 60), "...") : value;
+        return $"The value '{renderedValue}'";
     }
 
     protected override string GetPartialMessage()
