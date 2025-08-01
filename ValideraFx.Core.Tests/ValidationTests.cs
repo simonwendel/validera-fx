@@ -98,6 +98,7 @@ public class ValidationTests
     [ExcludeFromCodeCoverage]
     private class SomeTypeCustomValidator : IValidator<SomeType>
     {
+        public bool RenderValue { get; set; } = true;
         public SomeType Validate(UntrustedValue<SomeType> value) => value.Value;
     }
 

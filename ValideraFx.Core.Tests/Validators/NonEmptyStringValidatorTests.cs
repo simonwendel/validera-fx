@@ -10,22 +10,33 @@ namespace ValideraFx.Core.Tests.Validators;
 public class NonEmptyStringValidatorTests
 {
     [Theory]
-    [InlineAutoData(null)]
-    internal void Validate_GivenNullString_ThrowsException(string value, NonEmptyStringValidator sut)
+    [InlineAutoData(null, true)]
+    [InlineAutoData(null, false)]
+    internal void Validate_GivenNullString_ThrowsExceptionAndIgnoresRenderValue(
+        string value, 
+        bool renderValue,
+        NonEmptyStringValidator sut)
     {
         var untrusted = new UntrustedValue<string>(value);
+        sut.RenderValue = renderValue;
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
             .WithMessage($"Validation failed. The value is null.");
     }
-    
+
     [Theory]
-    [InlineAutoData("")]
-    [InlineAutoData(" ")]
-    internal void Validate_GivenEmptyString_ThrowsException(string value, NonEmptyStringValidator sut)
+    [InlineAutoData("", true)]
+    [InlineAutoData("", false)]
+    [InlineAutoData(" ", true)]
+    [InlineAutoData(" ", false)]
+    internal void Validate_GivenEmptyString_ThrowsExceptionAndIgnoresRenderValue(
+        string value, 
+        bool renderValue,
+        NonEmptyStringValidator sut)
     {
         var untrusted = new UntrustedValue<string>(value);
+        sut.RenderValue = renderValue;
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
@@ -33,10 +44,15 @@ public class NonEmptyStringValidatorTests
     }
 
     [Theory]
-    [InlineAutoData(null)]
-    internal void Validate_GivenNullStringAndName_ThrowsException(string value, NonEmptyStringValidator sut)
+    [InlineAutoData(null, true)]
+    [InlineAutoData(null, false)]
+    internal void Validate_GivenNullStringAndName_ThrowsExceptionAndIgnoresRenderValue(
+        string value, 
+        bool renderValue,
+        NonEmptyStringValidator sut)
     {
         var untrusted = new UntrustedValue<string>(value, "myString");
+        sut.RenderValue = renderValue;
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
@@ -44,11 +60,17 @@ public class NonEmptyStringValidatorTests
     }
 
     [Theory]
-    [InlineAutoData("")]
-    [InlineAutoData(" ")]
-    internal void Validate_GivenEmptyStringAndName_ThrowsException(string value, NonEmptyStringValidator sut)
+    [InlineAutoData("", true)]
+    [InlineAutoData("", false)]
+    [InlineAutoData(" ", true)]
+    [InlineAutoData(" ", false)]
+    internal void Validate_GivenEmptyStringAndName_ThrowsExceptionAndIgnoresRenderValue(
+        string value, 
+        bool renderValue,
+        NonEmptyStringValidator sut)
     {
         var untrusted = new UntrustedValue<string>(value, "myString");
+        sut.RenderValue = renderValue;
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()

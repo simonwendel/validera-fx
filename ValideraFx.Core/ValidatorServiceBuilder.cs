@@ -24,18 +24,20 @@ public class ValidatorServiceBuilder
         return this;
     }
 
-    public IValidator Build()
+    public IValidator Build(bool renderValues = true)
     {
         if (validators.Count == 0)
         {
             throw new InvalidOperationException("No validators registered.");
         }
 
-        return new ValidatorService(validators);
+        return new ValidatorService(validators, renderValues);
     }
 
-    private class ValidatorService(Dictionary<Type, object> validators) : IValidator
+    private class ValidatorService(Dictionary<Type, object> validators, bool renderValues) : IValidator
     {
+        public bool RenderValue { get; set; } = renderValues;
+
         public T Validate<T>(UntrustedValue<T> untrustedValue) where T : notnull
         {
             if (validators.TryGetValue(typeof(T), out var validator))
@@ -45,6 +47,7 @@ public class ValidatorServiceBuilder
                     throw new InvalidOperationException($"Validator for type {typeof(T)} is not of the correct type.");
                 }
 
+                typedValidator.RenderValue = RenderValue;
                 return typedValidator.Validate(untrustedValue);
             }
 

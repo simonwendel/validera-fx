@@ -5,10 +5,12 @@ namespace ValideraFx.Core;
 
 public interface IValidator<T> where T : notnull 
 {
+    bool RenderValue { get; set; }
     T Validate(UntrustedValue<T> untrustedValue);
 }
 
 public interface IValidator
 {
+    bool RenderValue { get; set; }
     T Validate<T>(UntrustedValue<T> untrustedValue) where T : notnull;
 }

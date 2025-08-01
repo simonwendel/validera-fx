@@ -40,6 +40,21 @@ public class ElementCountValidatorTests
     }
 
     [Fact]
+    internal void Validate_GivenTooFewElementsAndDontRenderValue_ThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>(["a"]);
+        var sut = new ElementCountValidator<string>(2)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 2 and int.MaxValue).");
+    }
+
+    [Fact]
     internal void Validate_GivenTooFewElementsExactlyZero_ThrowsException()
     {
         var untrusted = new UntrustedValue<IEnumerable<string>>([]);
@@ -49,6 +64,21 @@ public class ElementCountValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed. The list with 0 elements does not have a valid length (must be between 2 and int.MaxValue).");
+    }
+
+    [Fact]
+    internal void Validate_GivenTooFewElementsExactlyZeroAndDontRenderValue_ThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>([]);
+        var sut = new ElementCountValidator<string>(2)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 2 and int.MaxValue).");
     }
 
     [Fact]
@@ -64,6 +94,21 @@ public class ElementCountValidatorTests
     }
 
     [Fact]
+    internal void Validate_GivenNullEnumerableAndDontRenderValue_TreatsAsZeroAndThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>(null!);
+        var sut = new ElementCountValidator<string>(2)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 2 and int.MaxValue).");
+    }
+
+    [Fact]
     internal void Validate_GivenTooFewElementsAndName_ThrowsException()
     {
         var untrusted = new UntrustedValue<IEnumerable<string>>(["a"], "myList");
@@ -73,6 +118,21 @@ public class ElementCountValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myList'. The list with 1 element does not have a valid length (must be between 2 and int.MaxValue).");
+    }
+
+    [Fact]
+    internal void Validate_GivenTooFewElementsAndNameAndDontRenderValue_ThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>(["a"], "myList");
+        var sut = new ElementCountValidator<string>(2)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myList'. The value does not have a valid length (must be between 2 and int.MaxValue).");
     }
 
     [Fact]
@@ -88,6 +148,21 @@ public class ElementCountValidatorTests
     }
 
     [Fact]
+    internal void Validate_GivenTooManyElementsAndDontRenderValue_ThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>(["a", "b", "c", "d", "e", "f"]);
+        var sut = new ElementCountValidator<string>(1, 5)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 1 and 5).");
+    }
+
+    [Fact]
     internal void Validate_GivenTooManyElementsAndName_ThrowsException()
     {
         var untrusted = new UntrustedValue<IEnumerable<string>>(["a", "b", "c", "d", "e", "f"], "myList");
@@ -100,7 +175,22 @@ public class ElementCountValidatorTests
     }
 
     [Fact]
-    internal void Validate_GivenStringWithinLengthRange_ReturnsValue()
+    internal void Validate_GivenTooManyElementsAndNameAndDontRenderValue_ThrowsException()
+    {
+        var untrusted = new UntrustedValue<IEnumerable<string>>(["a", "b", "c", "d", "e", "f"], "myList");
+        var sut = new ElementCountValidator<string>(1, 5)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myList'. The value does not have a valid length (must be between 1 and 5).");
+    }
+
+    [Fact]
+    internal void Validate_GivenNumberOfElementsWithinRange_ReturnsValue()
     {
         List<string> expected = ["a", "b", "c", "d", "e"];
         var untrusted = new UntrustedValue<IEnumerable<string>>(expected);

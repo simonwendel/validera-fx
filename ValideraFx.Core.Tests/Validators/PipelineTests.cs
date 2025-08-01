@@ -15,5 +15,5 @@ public class PipelineTests
         constructing.Should().Throw<ArgumentException>();
     }
 
-    private class TestPipeline() : Pipeline<object>(Array.Empty<Validator<object>>());
+    private class TestPipeline : Pipeline<object>;
 }

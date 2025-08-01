@@ -21,11 +21,18 @@ public class Pipeline<T> : Validator<T> where T : notnull
     }
 
     protected override bool Valid(T value, string? name)
-        => validators.All(validator =>
+    {
+        foreach (var validator in validators)
+        {
+            validator.RenderValue = RenderValue;
+        }
+        
+        return validators.All(validator =>
         {
             validator.Validate(new UntrustedValue<T>(value, name));
             return true;
         });
+    }
 
     /// <remarks>
     /// The <see cref="Pipeline{T}" /> will never throw an exception itself, but instead

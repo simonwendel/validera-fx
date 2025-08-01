@@ -47,6 +47,24 @@ public class StringLengthValidatorTests
     [InlineAutoData("", 1)]
     [InlineAutoData("_1_", 4)]
     [InlineAutoData("abc", 6)]
+    internal void Validate_GivenTooShortStringAndDontRenderValue_ThrowsException(string value, int minLength)
+    {
+        var untrusted = new UntrustedValue<string>(value);
+        var sut = new StringLengthValidator(minLength)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between {minLength} and int.MaxValue).");
+    }
+
+    [Theory]
+    [InlineAutoData("", 1)]
+    [InlineAutoData("_1_", 4)]
+    [InlineAutoData("abc", 6)]
     internal void Validate_GivenTooShortStringAndName_ThrowsException(string value, int minLength)
     {
         var untrusted = new UntrustedValue<string>(value, "myString");
@@ -56,6 +74,24 @@ public class StringLengthValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between {minLength} and int.MaxValue).");
+    }
+
+    [Theory]
+    [InlineAutoData("", 1)]
+    [InlineAutoData("_1_", 4)]
+    [InlineAutoData("abc", 6)]
+    internal void Validate_GivenTooShortStringAndNameAndDontRenderValue_ThrowsException(string value, int minLength)
+    {
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        var sut = new StringLengthValidator(minLength)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value does not have a valid length (must be between {minLength} and int.MaxValue).");
     }
 
     [Theory]
@@ -73,8 +109,29 @@ public class StringLengthValidatorTests
                 $"Validation failed. The value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
     }
 
+    [Theory]
+    [InlineAutoData("12", 0, 1)]
+    [InlineAutoData("_1_2_3_4", 2, 4)]
+    [InlineAutoData("abcdefghijklmnopqrstuvxyz", 6, 20)]
+    internal void Validate_GivenTooLongStringAndDontRenderValue_ThrowsException(
+        string value, 
+        int minLength,
+        int maxLength)
+    {
+        var untrusted = new UntrustedValue<string>(value);
+        var sut = new StringLengthValidator(minLength, maxLength)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between {minLength} and {maxLength}).");
+    }
+
     [Fact]
-    internal void Validate_GivenTooWayLongString_ThrowsExceptionWithTruncatedValue()
+    internal void Validate_GivenWayTooLongString_ThrowsExceptionWithTruncatedValue()
     {
         const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
         const string renderedValue = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz...";
@@ -85,6 +142,22 @@ public class StringLengthValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed. The value '{renderedValue}' does not have a valid length (must be between 6 and 20).");
+    }
+
+    [Fact]
+    internal void Validate_GivenWayTooLongStringAndDontRenderValue_ThrowsExceptionWithTruncatedValue()
+    {
+        const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
+        var untrusted = new UntrustedValue<string>(value);
+        var sut = new StringLengthValidator(6, 20)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 6 and 20).");
     }
 
     [Theory]
@@ -102,8 +175,29 @@ public class StringLengthValidatorTests
                 $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between {minLength} and {maxLength}).");
     }
 
+    [Theory]
+    [InlineAutoData("12", 0, 1)]
+    [InlineAutoData("_1_2_3_4", 2, 4)]
+    [InlineAutoData("abcdefghijklmnopqrstuvxyz", 6, 20)]
+    internal void Validate_GivenTooLongStringAndNameAndDontRenderValue_ThrowsException(
+        string value, 
+        int minLength,
+        int maxLength)
+    {
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        var sut = new StringLengthValidator(minLength, maxLength)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value does not have a valid length (must be between {minLength} and {maxLength}).");
+    }
+
     [Fact]
-    internal void Validate_GivenTooWayLongStringAndName_ThrowsExceptionWithTruncatedValue()
+    internal void Validate_GivenWayTooLongStringAndName_ThrowsExceptionWithTruncatedValue()
     {
         const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
         const string renderedValue = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz...";
@@ -114,6 +208,22 @@ public class StringLengthValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{renderedValue}' does not have a valid length (must be between 6 and 20).");
+    }
+
+    [Fact]
+    internal void Validate_GivenWayTooLongStringAndNameAndDontRenderValue_ThrowsExceptionWithTruncatedValue()
+    {
+        const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        var sut = new StringLengthValidator(6, 20)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value does not have a valid length (must be between 6 and 20).");
     }
 
     [Fact]

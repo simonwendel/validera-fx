@@ -60,7 +60,10 @@ public class ValidatorServiceBuilderTests
     [Fact]
     public void Build_WhenValidatorsRegistered_ReturnsValidator()
     {
-        var product = sut.AddValidator<string, NonEmptyStringValidator>().AddValidator(new IntegerIntervalValidator(0, 10)).Build();
+        var product = sut
+            .AddValidator(new StringLengthValidator(3, 5))
+            .AddValidator(new IntegerIntervalValidator(0, 10))
+            .Build();
         product.Should().NotBeNull();
         
         var untrustedString = new UntrustedValue<string>("test");
@@ -69,11 +72,37 @@ public class ValidatorServiceBuilderTests
         product.Validate(untrustedString).Should().Be("test");
         product.Validate(untrustedInteger).Should().Be(5);
 
-        Action validatingString = () => product.Validate(new UntrustedValue<string>(""));
-        validatingString.Should().Throw<ValidationException>();
+        Action validatingString = () => product.Validate(new UntrustedValue<string>("123456"));
+        validatingString.Should().Throw<ValidationException>().And.ValidationMessage.Should().Contain("123456");
         
         Action validatingInteger = () => product.Validate(new UntrustedValue<int>(-1));
-        validatingInteger.Should().Throw<ValidationException>();
+        validatingInteger.Should().Throw<ValidationException>().And.ValidationMessage.Should().Contain("-1");
+        
+        Action validatingNonRegisteredType = () => product.Validate(new UntrustedValue<double>(3.14));
+        validatingNonRegisteredType.Should().Throw<InvalidOperationException>()
+            .WithMessage("No validator registered for type System.Double.");
+    }
+    
+    [Fact]
+    public void Build_WhenValidatorsRegisteredAndDontRenderValues_ReturnsValidator()
+    {
+        var product = sut
+            .AddValidator(new StringLengthValidator(3, 5))
+            .AddValidator(new IntegerIntervalValidator(0, 10))
+            .Build(renderValues: false);
+        product.Should().NotBeNull();
+        
+        var untrustedString = new UntrustedValue<string>("test");
+        var untrustedInteger = new UntrustedValue<int>(5);
+        
+        product.Validate(untrustedString).Should().Be("test");
+        product.Validate(untrustedInteger).Should().Be(5);
+
+        Action validatingString = () => product.Validate(new UntrustedValue<string>("123456"));
+        validatingString.Should().Throw<ValidationException>().And.ValidationMessage.Should().NotContain("123456");
+        
+        Action validatingInteger = () => product.Validate(new UntrustedValue<int>(-1));
+        validatingInteger.Should().Throw<ValidationException>().And.ValidationMessage.Should().NotContain("-1");
         
         Action validatingNonRegisteredType = () => product.Validate(new UntrustedValue<double>(3.14));
         validatingNonRegisteredType.Should().Throw<InvalidOperationException>()

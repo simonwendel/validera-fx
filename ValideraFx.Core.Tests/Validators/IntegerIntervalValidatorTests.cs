@@ -38,6 +38,24 @@ public class IntegerIntervalValidatorTests
     [InlineAutoData(0, 1)]
     [InlineAutoData(3, 4)]
     [InlineAutoData(5, 6)]
+    internal void Validate_GivenValueLessThanLowerBoundsAndDontRenderValue_ThrowsException(int value, int lowerBounds)
+    {
+        var untrusted = new UntrustedValue<int>(value);
+        var sut = new IntegerIntervalValidator(lowerBounds)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value is not within the interval [{lowerBounds}, int.MaxValue].");
+    }
+
+    [Theory]
+    [InlineAutoData(0, 1)]
+    [InlineAutoData(3, 4)]
+    [InlineAutoData(5, 6)]
     internal void Validate_GivenValueLessThanLowerBoundsAndName_ThrowsException(int value, int lowerBounds)
     {
         var untrusted = new UntrustedValue<int>(value, "myInteger");
@@ -47,6 +65,26 @@ public class IntegerIntervalValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myInteger'. The value '{value}' is not within the interval [{lowerBounds}, int.MaxValue].");
+    }
+
+    [Theory]
+    [InlineAutoData(0, 1)]
+    [InlineAutoData(3, 4)]
+    [InlineAutoData(5, 6)]
+    internal void Validate_GivenValueLessThanLowerBoundsAndNameAndDontRenderValue_ThrowsException(
+        int value,
+        int lowerBounds)
+    {
+        var untrusted = new UntrustedValue<int>(value, "myInteger");
+        var sut = new IntegerIntervalValidator(lowerBounds)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myInteger'. The value is not within the interval [{lowerBounds}, int.MaxValue].");
     }
 
     [Theory]
@@ -68,7 +106,30 @@ public class IntegerIntervalValidatorTests
     [InlineAutoData(2, 0, 1)]
     [InlineAutoData(5, 2, 4)]
     [InlineAutoData(21, 6, 20)]
-    internal void Validate_GivenValueGreaterThenUpperBoundsAndName_ThrowsException(int value, int lowerBounds,
+    internal void Validate_GivenValueGreaterThenUpperBoundsAndDontRenderValue_ThrowsException(
+        int value,
+        int lowerBounds, 
+        int upperBounds)
+    {
+        var untrusted = new UntrustedValue<int>(value);
+        var sut = new IntegerIntervalValidator(lowerBounds, upperBounds)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value is not within the interval [{lowerBounds}, {upperBounds}].");
+    }
+
+    [Theory]
+    [InlineAutoData(2, 0, 1)]
+    [InlineAutoData(5, 2, 4)]
+    [InlineAutoData(21, 6, 20)]
+    internal void Validate_GivenValueGreaterThenUpperBoundsAndName_ThrowsException(
+        int value, 
+        int lowerBounds,
         int upperBounds)
     {
         var untrusted = new UntrustedValue<int>(value, "myInteger");
@@ -78,6 +139,27 @@ public class IntegerIntervalValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myInteger'. The value '{value}' is not within the interval [{lowerBounds}, {upperBounds}].");
+    }
+
+    [Theory]
+    [InlineAutoData(2, 0, 1)]
+    [InlineAutoData(5, 2, 4)]
+    [InlineAutoData(21, 6, 20)]
+    internal void Validate_GivenValueGreaterThenUpperBoundsAndNameAndDontRenderValue_ThrowsException(
+        int value,
+        int lowerBounds,
+        int upperBounds)
+    {
+        var untrusted = new UntrustedValue<int>(value, "myInteger");
+        var sut = new IntegerIntervalValidator(lowerBounds, upperBounds)
+        {
+            RenderValue = false
+        };
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myInteger'. The value is not within the interval [{lowerBounds}, {upperBounds}].");
     }
 
     [Fact]

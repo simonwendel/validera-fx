@@ -70,8 +70,22 @@ public class NonEmptyStringLengthValidatorTests
                 $"Validation failed. The value '{value}' does not have a valid length (must be between 3 and 5).");
     }
 
+    [Theory]
+    [InlineData("12")]
+    [InlineData("123456")]
+    internal void Validate_GivenNonValidLengthStringAndDontRenderValue_ThrowsException(string value)
+    {
+        var untrusted = new UntrustedValue<string>(value);
+        sut.RenderValue = false;
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 3 and 5).");
+    }
+
     [Fact]
-    internal void Validate_GivenTooWayLongString_ThrowsExceptionWithTruncatedValue()
+    internal void Validate_GivenWayTooLongString_ThrowsExceptionWithTruncatedValue()
     {
         const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
         const string renderedValue = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz...";
@@ -81,6 +95,19 @@ public class NonEmptyStringLengthValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed. The value '{renderedValue}' does not have a valid length (must be between 3 and 5).");
+    }
+
+    [Fact]
+    internal void Validate_GivenWayTooLongStringAndDontRenderValue_ThrowsException()
+    {
+        const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
+        var untrusted = new UntrustedValue<string>(value);
+        sut.RenderValue = false;
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed. The value does not have a valid length (must be between 3 and 5).");
     }
 
     [Theory]
@@ -96,8 +123,22 @@ public class NonEmptyStringLengthValidatorTests
                 $"Validation failed for 'myString'. The value '{value}' does not have a valid length (must be between 3 and 5).");
     }
 
+    [Theory]
+    [InlineData("12")]
+    [InlineData("123456")]
+    internal void Validate_GivenNonValidLengthStringAndNameAndDontRenderValue_ThrowsException(string value)
+    {
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        sut.RenderValue = false;
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value does not have a valid length (must be between 3 and 5).");
+    }
+
     [Fact]
-    internal void Validate_GivenTooWayLongStringAndName_ThrowsExceptionWithTruncatedValue()
+    internal void Validate_GivenWayTooLongStringAndName_ThrowsExceptionWithTruncatedValue()
     {
         const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
         const string renderedValue = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz...";
@@ -107,6 +148,19 @@ public class NonEmptyStringLengthValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{renderedValue}' does not have a valid length (must be between 3 and 5).");
+    }
+
+    [Fact]
+    internal void Validate_GivenWayTooLongStringAndNameAndDontRenderValue_ThrowsException()
+    {
+        const string value = "abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmnopqrstuvxyz1234567890abcdefghijklmno";
+        sut.RenderValue = false;
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value does not have a valid length (must be between 3 and 5).");
     }
 
     [Theory]

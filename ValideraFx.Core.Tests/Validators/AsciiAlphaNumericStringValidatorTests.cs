@@ -31,6 +31,23 @@ public class AsciiAlphaNumericStringValidatorTests
     [InlineAutoData(";")]
     [InlineAutoData("123_")]
     [InlineAutoData("😊")]
+    internal void Validate_GivenStringWithNonAlphanumericCharactersAndDontRenderValue_ThrowsException(string value,
+        AsciiAlphaNumericStringValidator sut)
+    {
+        var untrusted = new UntrustedValue<string>(value);
+        sut.RenderValue = false;
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage($"Validation failed. The value is not a valid ASCII alpha-numeric string.");
+    }
+
+    [Theory]
+    [InlineAutoData(" ")]
+    [InlineAutoData("å")]
+    [InlineAutoData(";")]
+    [InlineAutoData("123_")]
+    [InlineAutoData("😊")]
     internal void Validate_GivenStringWithNonAlphanumericCharactersAndValueName_ThrowsException(string value,
         AsciiAlphaNumericStringValidator sut)
     {
@@ -40,6 +57,25 @@ public class AsciiAlphaNumericStringValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{value}' is not a valid ASCII alpha-numeric string.");
+    }
+
+    [Theory]
+    [InlineAutoData(" ")]
+    [InlineAutoData("å")]
+    [InlineAutoData(";")]
+    [InlineAutoData("123_")]
+    [InlineAutoData("😊")]
+    internal void Validate_GivenStringWithNonAlphanumericCharactersAndValueNameAndDontRenderValue_ThrowsException(
+        string value,
+        AsciiAlphaNumericStringValidator sut)
+    {
+        var untrusted = new UntrustedValue<string>(value, "myString");
+        sut.RenderValue = false;
+        Action validating = () => sut.Validate(untrusted);
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value is not a valid ASCII alpha-numeric string.");
     }
 
     [Theory]

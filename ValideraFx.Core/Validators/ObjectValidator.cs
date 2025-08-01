@@ -14,6 +14,7 @@ internal class ObjectValidator<T, TProp>(Expression<Func<T, TProp>> selector, IV
 {
     protected override bool Valid(T value, string? name)
     {
+        validator.RenderValue = RenderValue;
         validator.Validate(new UntrustedValue<TProp>(
             selector.Compile().Invoke(value),
             $"{GetMemberName(selector, name)}"));

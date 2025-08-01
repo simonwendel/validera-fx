@@ -42,11 +42,19 @@ internal class StringLengthValidator : Validator<string>
             return false;
         }
     }
-    
+
     protected override string GetValueMessage(UntrustedValue<string> untrustedValue)
     {
+        if (!RenderValue)
+        {
+            return "The value";
+        }
+
         var value = untrustedValue.Value;
-        var renderedValue = value.Length > DefaultMaxLengthToRender ? string.Concat(value.AsSpan(0, 60), "...") : value;
+        var renderedValue = value.Length > DefaultMaxLengthToRender
+            ? string.Concat(value.AsSpan(0, 60), "...")
+            : value;
+        
         return $"The value '{renderedValue}'";
     }
 

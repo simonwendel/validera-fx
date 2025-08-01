@@ -9,24 +9,34 @@ namespace ValideraFx.Core.Tests.Validators;
 
 public class NotNullObjectValidatorTests
 {
-    [Theory, AutoData]
-    internal void Validate_GivenNull_ThrowsException(NotNullObjectValidator<object> sut)
+    [Theory]
+    [InlineAutoData(true)]
+    [InlineAutoData(false)]
+    internal void Validate_GivenNull_ThrowsExceptionAndIgnoresRenderValue(
+        bool renderValue,
+        NotNullObjectValidator<object> sut)
     {
         var untrusted = new UntrustedValue<object>(null!);
+        sut.RenderValue = renderValue;
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed. The value must not be null.");
+            .WithMessage($"Validation failed. The value is null.");
     }
-    
-    [Theory, AutoData]
-    internal void Validate_GivenNullAndName_ThrowsException(NotNullObjectValidator<object> sut)
+
+    [Theory]
+    [InlineAutoData(true)]
+    [InlineAutoData(false)]
+    internal void Validate_GivenNullAndName_ThrowsExceptionAndIgnoresRenderValue(
+        bool renderValue,
+        NotNullObjectValidator<object> sut)
     {
         var untrusted = new UntrustedValue<object>(null!, "myObject");
+        sut.RenderValue = renderValue;
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed for 'myObject'. The value must not be null.");
+            .WithMessage($"Validation failed for 'myObject'. The value is null.");
     }
 
     [Theory, AutoData]

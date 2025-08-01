@@ -27,6 +27,21 @@ public class Base64AlphabetValidatorTests
     [InlineAutoData("\\")]
     [InlineAutoData("å")]
     [InlineAutoData(";")]
+    internal void Validate_GivenIllegalCharacterAndDontRenderValue_ThrowsException(string value,
+        Base64AlphabetValidator sut)
+    {
+        Action validating = () => sut.Validate(new UntrustedValue<string>(value));
+        sut.RenderValue = false;
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage($"Validation failed. The value is not a valid base64 alphabet string.");
+    }
+
+    [Theory]
+    [InlineAutoData("-")]
+    [InlineAutoData("\\")]
+    [InlineAutoData("å")]
+    [InlineAutoData(";")]
     internal void Validate_GivenIllegalCharacterAndName_ThrowsException(string value, Base64AlphabetValidator sut)
     {
         Action validating = () => sut.Validate(new UntrustedValue<string>(value, "myString"));
@@ -34,6 +49,22 @@ public class Base64AlphabetValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{value}' is not a valid base64 alphabet string.");
+    }
+
+    [Theory]
+    [InlineAutoData("-")]
+    [InlineAutoData("\\")]
+    [InlineAutoData("å")]
+    [InlineAutoData(";")]
+    internal void Validate_GivenIllegalCharacterAndNameAndDontRenderValue_ThrowsException(string value,
+        Base64AlphabetValidator sut)
+    {
+        Action validating = () => sut.Validate(new UntrustedValue<string>(value, "myString"));
+        sut.RenderValue = false;
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value is not a valid base64 alphabet string.");
     }
 
     [Theory]
@@ -54,6 +85,21 @@ public class Base64AlphabetValidatorTests
     [InlineAutoData("+/=")]
     [InlineAutoData("+/===")]
     [InlineAutoData("+/====")]
+    internal void Validate_GivenInvalidPaddingAndDontRenderValue_ThrowsException(string value,
+        Base64AlphabetValidator sut)
+    {
+        Action validating = () => sut.Validate(new UntrustedValue<string>(value));
+        sut.RenderValue = false;
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage($"Validation failed. The value is not a valid base64 alphabet string.");
+    }
+
+    [Theory]
+    [InlineAutoData("+/")]
+    [InlineAutoData("+/=")]
+    [InlineAutoData("+/===")]
+    [InlineAutoData("+/====")]
     internal void Validate_GivenInvalidPaddingAndName_ThrowsException(string value, Base64AlphabetValidator sut)
     {
         Action validating = () => sut.Validate(new UntrustedValue<string>(value, "myString"));
@@ -61,6 +107,22 @@ public class Base64AlphabetValidatorTests
             .Throw<ValidationException>()
             .WithMessage(
                 $"Validation failed for 'myString'. The value '{value}' is not a valid base64 alphabet string.");
+    }
+
+    [Theory]
+    [InlineAutoData("+/")]
+    [InlineAutoData("+/=")]
+    [InlineAutoData("+/===")]
+    [InlineAutoData("+/====")]
+    internal void Validate_GivenInvalidPaddingAndNameAndDontRenderValue_ThrowsException(string value,
+        Base64AlphabetValidator sut)
+    {
+        Action validating = () => sut.Validate(new UntrustedValue<string>(value, "myString"));
+        sut.RenderValue = false;
+        validating.Should()
+            .Throw<ValidationException>()
+            .WithMessage(
+                $"Validation failed for 'myString'. The value is not a valid base64 alphabet string.");
     }
 
     [Theory]
