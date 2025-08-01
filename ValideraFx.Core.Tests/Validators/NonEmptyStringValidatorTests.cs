@@ -17,7 +17,7 @@ public class NonEmptyStringValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed. The null value is null or empty.");
+            .WithMessage($"Validation failed. The value is null.");
     }
     
     [Theory]
@@ -29,7 +29,7 @@ public class NonEmptyStringValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed. The value '{value}' is null or empty.");
+            .WithMessage($"Validation failed. The value is empty.");
     }
 
     [Theory]
@@ -40,7 +40,7 @@ public class NonEmptyStringValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed for 'myString'. The null value is null or empty.");
+            .WithMessage($"Validation failed for 'myString'. The value is null.");
     }
 
     [Theory]
@@ -52,7 +52,7 @@ public class NonEmptyStringValidatorTests
         Action validating = () => sut.Validate(untrusted);
         validating.Should()
             .Throw<ValidationException>()
-            .WithMessage($"Validation failed for 'myString'. The value '{value}' is null or empty.");
+            .WithMessage($"Validation failed for 'myString'. The value is empty.");
     }
 
     [Theory, AutoData]
