@@ -11,5 +11,6 @@ public class DefaultValidationOptionsSetup : IConfigureOptions<ValidationOptions
     {
         options.EnforceValidModelState = true;
         options.EnforceValidatedTypes = false;
+        options.DontRenderValues = false;
     }
 }

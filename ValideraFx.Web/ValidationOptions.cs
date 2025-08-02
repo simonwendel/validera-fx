@@ -7,4 +7,5 @@ public class ValidationOptions
 {
     public bool EnforceValidModelState { get; set; }
     public bool EnforceValidatedTypes { get; set; }
+    public bool DontRenderValues { get; set; }
 }

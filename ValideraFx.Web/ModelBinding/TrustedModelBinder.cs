@@ -2,6 +2,8 @@
 // SPDX-License-Identifier: LGPL-3.0-or-later
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using ValideraFx.Core;
 
 namespace ValideraFx.Web.ModelBinding;
@@ -27,8 +29,12 @@ internal class TrustedModelBinder(
         var name = bindingContext.ModelMetadata.ParameterName;
         var untrustedInnerType = typeof(UntrustedValue<>).MakeGenericType(InnerType);
         var untrustedValue = Activator.CreateInstance(untrustedInnerType, nestedContext.Result.Model, name);
+        
+        var options = bindingContext.HttpContext.RequestServices
+            .GetRequiredService<IOptions<ValidationOptions>>().Value;
 
-        var validator = validators.GetValidatorFor(InnerType, services);
+        var validator = validators.GetValidatorFor(InnerType, services, options);
+
         return [untrustedValue, validator];
     }
 }

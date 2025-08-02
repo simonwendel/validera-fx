@@ -3,9 +3,9 @@
 
 using System.Net;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ValideraFx.IntegrationTests.Mvc.ExplicitTrust;
 

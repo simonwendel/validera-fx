@@ -23,4 +23,12 @@ public class DefaultValidationOptionsSetupTests
         sut.Configure(options);
         options.EnforceValidatedTypes.Should().BeFalse();
     }
+    
+    [Theory, AutoData]
+    public void Configure_GivenOptions_SetsDontRenderValuesToFalse(DefaultValidationOptionsSetup sut)
+    {
+        var options = new ValidationOptions();
+        sut.Configure(options);
+        options.DontRenderValues.Should().BeFalse();
+    }
 }

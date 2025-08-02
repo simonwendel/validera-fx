@@ -17,22 +17,34 @@ public class ValidatorRegistry : IValidatorRegistry
         this.services = services;
     }
 
-    public object? GetValidatorFor(Type type, IServiceProvider serviceProvider)
+    public object? GetValidatorFor(Type type, IServiceProvider serviceProvider, ValidationOptions options)
     {
         ArgumentNullException.ThrowIfNull(type);
         ArgumentNullException.ThrowIfNull(serviceProvider);
+        ArgumentNullException.ThrowIfNull(options);
 
         if (validators is null)
         {
             Load();
         }
 
-        if (validators!.TryGetValue(type, out var validatorType))
+        if (!validators!.TryGetValue(type, out var validatorType))
         {
-            return serviceProvider.GetService(validatorType);
+            throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
         }
 
-        throw new InvalidOperationException($"No suitable validator for type {type.FullName} found.");
+        var validator = serviceProvider.GetService(validatorType);
+        if (options.DontRenderValues)
+        {
+            var prop = validatorType.GetProperty("RenderValue");
+            if (prop is not null && prop.CanWrite)
+            {
+                prop.SetValue(validator, false);
+            }
+        }
+
+        return validator;
+
     }
 
     public void Load()

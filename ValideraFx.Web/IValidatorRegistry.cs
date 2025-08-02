@@ -7,5 +7,5 @@ public interface IValidatorRegistry
 {
     void Load();
     
-    object? GetValidatorFor(Type type, IServiceProvider serviceProvider);
+    object? GetValidatorFor(Type type, IServiceProvider serviceProvider, ValidationOptions options);
 }
