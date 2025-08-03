@@ -1,0 +1,85 @@
+﻿# SPDX-FileCopyrightText: 2025 Simon Wendel
+# SPDX-License-Identifier: CC0-1.0
+
+name: Pack and Push NuGet
+
+on:
+  workflow_call:
+    inputs:
+      rel_version:
+        description: "Release Version"
+        type: string
+        required: true
+
+      pkg_version:
+        description: "Package Version"
+        type: string
+        required: true
+
+      dll_version:
+        description: "Assembly DLL version"
+        type: string
+        required: true
+
+jobs:
+  pack-then-push:
+    runs-on: ubuntu-latest
+
+    env:
+      NUGET_SOURCE: https://api.nuget.org/v3/index.json
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Pack ValideraFx.Core
+        run: dotnet pack ./ValideraFx.Core/ValideraFx.Core.csproj -c Release -p:AssemblyVersion=${{ inputs.dll_version }} -p:Version=${{ inputs.rel_version }} -o ./nupkgs
+
+      - name: Pack ValideraFx.Web
+        run: dotnet pack ./ValideraFx.Web/ValideraFx.Web.csproj -c Release -p:AssemblyVersion=${{ inputs.dll_version }} -p:Version=${{ inputs.rel_version }} -o ./nupkgs
+
+      - name: Upload release files
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+            const tag = context.ref.replace("refs/tags/", "");
+            const repoInfo = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            };
+
+            const release = await github.repos.getReleaseByTag({
+              ...repoInfo,
+              tag
+            });
+
+            const releaseInfo = {
+              ...repoInfo,
+              release_id: release.data.id,
+            };
+
+            await github.repos.uploadReleaseAsset({
+              ...releaseInfo,
+              name: "ValideraFx.Core.${{ inputs.pkg_version }}.nupkg",
+              data: await fs.readFileSync("./nupkgs/ValideraFx.Core.${{ inputs.pkg_version }}.nupkg")
+            });
+
+            await github.repos.uploadReleaseAsset({
+              ...releaseInfo,
+              name: "ValideraFx.Web.${{ inputs.pkg_version }}.nupkg",
+              data: await fs.readFileSync("./nupkgs/ValideraFx.Web.${{ inputs.pkg_version }}.nupkg")
+            });
+
+      # - name: Push ValideraFx.Core
+      #   run: dotnet nuget push ./nupkgs/ValideraFx.Core.${{ inputs.pkg_version }}.nupkg -s ${NUGET_SOURCE} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+
+      # - name: Push ValideraFx.Web
+      #   run: dotnet nuget push ./nupkgs/ValideraFx.Web.${{ inputs.pkg_version }}.nupkg -s ${NUGET_SOURCE} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate

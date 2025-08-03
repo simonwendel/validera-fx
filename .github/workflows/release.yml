@@ -1,0 +1,30 @@
+﻿# SPDX-FileCopyrightText: 2025 Simon Wendel
+# SPDX-License-Identifier: CC0-1.0
+
+name: Release NuGet Package
+
+on:
+  release:
+    types: [ created ]
+
+permissions:
+  contents: write
+    
+jobs:
+  extract-and-check-version:
+    uses: ./.github/workflows/extract-version.yml
+
+  reuse-compliance-check:
+    uses: ./.github/workflows/reuse-compliance.yml
+
+  build-then-test:
+    uses: ./.github/workflows/build-then-test.yml
+
+  pack-then-push:
+    needs: [ extract-and-check-version, reuse-compliance-check, build-then-test]
+    uses: ./.github/workflows/pack-then-push.yml
+
+    with: 
+      rel_version: ${{ needs.extract-and-check-version.outputs.rel_version }}
+      pkg_version: ${{ needs.extract-and-check-version.outputs.pkg_version }}
+      dll_version: ${{ needs.extract-and-check-version.outputs.dll_version }}

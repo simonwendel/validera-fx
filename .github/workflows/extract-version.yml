@@ -1,0 +1,76 @@
+﻿# SPDX-FileCopyrightText: 2025 Simon Wendel
+# SPDX-License-Identifier: CC0-1.0
+
+name: Extract and Check Version
+
+on:
+  workflow_call:
+    outputs:
+      rel_version:
+        description: "Release Version"
+        value: ${{ jobs.extract-and-check-version.outputs.rel_version }}
+
+      pkg_version:
+        description: "Package Version"
+        value: ${{ jobs.extract-and-check-version.outputs.pkg_version }}
+
+      dll_version:
+        description: "Assembly Version"
+        value: ${{ jobs.extract-and-check-version.outputs.dll_version }}
+
+jobs:
+  extract-and-check-version:
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      rel_version: ${{ steps.extract.outputs.rel_version }}
+      pkg_version: ${{ steps.extract.outputs.pkg_version }}
+      dll_version: ${{ steps.extract.outputs.dll_version }}
+      
+    steps:
+      - name: Extract tag
+        run: echo "tag=${GITHUB_REF##*/}" >> $GITHUB_ENV
+    
+      - name: Extract versions
+        id: extract
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const fs = require('fs');
+
+            const tag = '${{ env.tag }}';
+            const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm;
+            
+            const match = semver.exec(tag);
+            if(!match) {
+              throw new Error(`Invalid tag format: ${tag}.`);
+            }
+
+            const [ version, major, minor, patch, prerelease, buildmetadata ] = match;
+
+            const info = {
+              version,
+              major,
+              minor,
+              patch,
+              prerelease,
+              buildmetadata
+            };
+            
+            console.log(info);
+
+            const relVersion = info.version;
+
+            let pkgVersion = `${info.major}.${info.minor}.${info.patch}`;
+            if(info.prerelease) {
+              pkgVersion += `-${info.prerelease}`;
+            }
+
+            const dllVersion = `${info.major}.0.0.0`;
+
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `rel_version=${relVersion}\n`)
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `pkg_version=${pkgVersion}\n`)
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `dll_version=${dllVersion}\n`)
+
+            console.log(fs.readFileSync(process.env.GITHUB_OUTPUT).toString())
