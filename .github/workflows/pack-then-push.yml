@@ -78,8 +78,8 @@ jobs:
               data: await fs.readFileSync("./nupkgs/ValideraFx.Web.${{ inputs.pkg_version }}.nupkg")
             });
 
-      # - name: Push ValideraFx.Core
-      #   run: dotnet nuget push ./nupkgs/ValideraFx.Core.${{ inputs.pkg_version }}.nupkg -s ${NUGET_SOURCE} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+      - name: Push ValideraFx.Core
+        run: dotnet nuget push ./nupkgs/ValideraFx.Core.${{ inputs.pkg_version }}.nupkg -s ${NUGET_SOURCE} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
 
-      # - name: Push ValideraFx.Web
-      #   run: dotnet nuget push ./nupkgs/ValideraFx.Web.${{ inputs.pkg_version }}.nupkg -s ${NUGET_SOURCE} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
+      - name: Push ValideraFx.Web
+        run: dotnet nuget push ./nupkgs/ValideraFx.Web.${{ inputs.pkg_version }}.nupkg -s ${NUGET_SOURCE} -k ${{ secrets.NUGET_API_KEY }} --skip-duplicate
