@@ -5,6 +5,11 @@ name: Pack and Push NuGet
 
 on:
   workflow_call:
+    secrets: 
+        NUGET_API_KEY:
+            description: "NuGet API Key for package publishing"
+            required: true
+
     inputs:
       rel_version:
         description: "Release Version"
