@@ -11,3 +11,4 @@ project.assets.json
 !.idea/.name
 !.idea/.name.license
 *.DotSettings
+nupkgs/
