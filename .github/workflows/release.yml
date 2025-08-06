@@ -24,6 +24,9 @@ jobs:
     needs: [ extract-and-check-version, reuse-compliance-check, build-then-test]
     uses: ./.github/workflows/pack-then-push.yml
 
+    secrets: 
+      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
     with: 
       rel_version: ${{ needs.extract-and-check-version.outputs.rel_version }}
       pkg_version: ${{ needs.extract-and-check-version.outputs.pkg_version }}
