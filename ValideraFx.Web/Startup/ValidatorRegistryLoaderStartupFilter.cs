@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ValideraFx.Web.Startup;
 
-public class ValidatorRegistryLoaderStartupFilter(IValidatorRegistry validatorRegistry) : IStartupFilter
+internal class ValidatorRegistryLoaderStartupFilter(IValidatorRegistry validatorRegistry) : IStartupFilter
 {
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {

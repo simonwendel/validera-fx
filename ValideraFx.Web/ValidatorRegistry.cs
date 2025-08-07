@@ -6,7 +6,7 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web;
 
-public class ValidatorRegistry : IValidatorRegistry
+internal class ValidatorRegistry : IValidatorRegistry
 {
     private readonly IServiceCollection services;
     private Dictionary<Type, Type>? validators = null;

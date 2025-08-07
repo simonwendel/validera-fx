@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace ValideraFx.Web;
 
-public class MvcControllerScanner : IMvcControllerScanner
+internal class MvcControllerScanner : IMvcControllerScanner
 {
     public Dictionary<string, List<(string Name, Type Type)>> Scan()
     {

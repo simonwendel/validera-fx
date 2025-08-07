@@ -27,6 +27,7 @@ SPDX-License-Identifier: LGPL-3.0-or-later
     
     <ItemGroup>
         <InternalsVisibleTo Include="ValideraFx.Web.Tests"/>
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
     </ItemGroup>
     
 </Project>

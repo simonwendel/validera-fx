@@ -8,7 +8,7 @@ using ValideraFx.Core;
 
 namespace ValideraFx.Web.Startup;
 
-public class ControllerScannerStartupFilter(IMvcControllerScanner controllerScanner) : IStartupFilter
+internal class ControllerScannerStartupFilter(IMvcControllerScanner controllerScanner) : IStartupFilter
 {
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {

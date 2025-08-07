@@ -9,7 +9,7 @@ namespace ValideraFx.Web.Tests;
 public class DefaultValidationOptionsSetupTests
 {
     [Theory, AutoData]
-    public void Configure_GivenOptions_SetsEnforceValidModelStateToTrue(DefaultValidationOptionsSetup sut)
+    internal void Configure_GivenOptions_SetsEnforceValidModelStateToTrue(DefaultValidationOptionsSetup sut)
     {
         var options = new ValidationOptions();
         sut.Configure(options);
@@ -17,7 +17,7 @@ public class DefaultValidationOptionsSetupTests
     }
     
     [Theory, AutoData]
-    public void Configure_GivenOptions_SetsEnforceValidatedTypesToFalse(DefaultValidationOptionsSetup sut)
+    internal void Configure_GivenOptions_SetsEnforceValidatedTypesToFalse(DefaultValidationOptionsSetup sut)
     {
         var options = new ValidationOptions();
         sut.Configure(options);
@@ -25,7 +25,7 @@ public class DefaultValidationOptionsSetupTests
     }
     
     [Theory, AutoData]
-    public void Configure_GivenOptions_SetsDontRenderValuesToFalse(DefaultValidationOptionsSetup sut)
+    internal void Configure_GivenOptions_SetsDontRenderValuesToFalse(DefaultValidationOptionsSetup sut)
     {
         var options = new ValidationOptions();
         sut.Configure(options);

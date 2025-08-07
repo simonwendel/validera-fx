@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Web;
 
-public interface IMvcControllerScanner
+internal interface IMvcControllerScanner
 {
     Dictionary<string, List<(string Name, Type Type)>> Scan();
 }

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ValideraFx.Web.Startup;
 
-public class AutoValidateModelStateForMvcOnlyFilter : IActionFilter
+internal class AutoValidateModelStateForMvcOnlyFilter : IActionFilter
 {
     public void OnActionExecuting(ActionExecutingContext context)
     {

@@ -3,7 +3,7 @@
 
 namespace ValideraFx.Web;
 
-public interface IValidatorRegistry
+internal interface IValidatorRegistry
 {
     void Load();
     
