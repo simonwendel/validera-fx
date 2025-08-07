@@ -40,7 +40,7 @@ jobs:
             const fs = require('fs');
 
             const tag = '${{ env.tag }}';
-            const semver = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm;
+            const semver = /^v?(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm;
             
             const match = semver.exec(tag);
             if(!match) {
@@ -60,11 +60,15 @@ jobs:
             
             console.log(info);
 
-            const relVersion = info.version;
-
-            let pkgVersion = `${info.major}.${info.minor}.${info.patch}`;
+            let relVersion = `${info.major}.${info.minor}.${info.patch}`;
             if(info.prerelease) {
-              pkgVersion += `-${info.prerelease}`;
+              relVersion += `-${info.prerelease}`;
+            }
+
+            const pkgVersion = relVersion;
+            
+            if(info.buildmetadata) {
+              relVersion += `+${info.buildmetadata}`;
             }
 
             const dllVersion = `${info.major}.0.0.0`;
