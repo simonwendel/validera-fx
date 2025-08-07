@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace ValideraFx.Core.Validators;
 
-public class NotNullObjectValidator<T> : Validator<T> where T : notnull
+internal class NotNullObjectValidator<T> : Validator<T> where T : notnull
 {
     protected override bool Valid(T? value, string? name) => value is not null;
 
