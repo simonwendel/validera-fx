@@ -10,8 +10,21 @@ using ValideraFx.Web.ModelBinding;
 
 namespace ValideraFx.Web.Startup;
 
+/// <summary>
+/// Provides extension methods for configuring ValideraFx integration with ASP.NET Core.
+/// </summary>
 public static class MvcBuilderExtensions
 {
+    /// <summary>
+    /// Adds ValideraFx validation services and configuration to the ASP.NET Core pipeline.
+    /// </summary>
+    /// <param name="builder">The MVC builder to configure.</param>
+    /// <param name="configure">
+    /// An optional delegate to configure <see cref="ValidationOptions"/> at startup.
+    /// </param>
+    /// <returns>
+    /// The same <see cref="IMvcBuilder"/> instance so that multiple calls can be chained.
+    /// </returns>
     public static IMvcBuilder AddValideraFx(this IMvcBuilder builder, Action<ValidationOptions>? configure = null)
     {
         var options = ApplyConfiguration(builder, configure);
