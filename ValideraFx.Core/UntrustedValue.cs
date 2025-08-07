@@ -10,7 +10,7 @@ public sealed class UntrustedValue<T>(T value, string? name = null)
 
     internal string? Name { get; } = name;
 
-    public sealed override bool Equals(object? obj)
+    public override bool Equals(object? obj)
         => obj switch
         {
             T wrapped => Value.Equals(wrapped),
@@ -23,10 +23,10 @@ public sealed class UntrustedValue<T>(T value, string? name = null)
     /// value without validating it first, but there are easier ways than this if you really
     /// want to, f.x. reflection.
     /// </remarks>
-    public sealed override int GetHashCode()
+    public override int GetHashCode()
         => Value.GetHashCode();
-    
-    public sealed override string ToString() => FormatType(GetType());
+
+    public override string ToString() => FormatType(GetType());
 
     private static string FormatType(Type type)
     {

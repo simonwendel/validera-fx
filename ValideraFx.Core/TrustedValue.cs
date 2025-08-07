@@ -17,9 +17,9 @@ public sealed class TrustedValue<T> where T : notnull
 
     public string? Name { get; }
 
-    public sealed override bool Equals(object? obj) => Value.Equals(obj);
+    public override bool Equals(object? obj) => Value.Equals(obj);
 
-    public sealed override int GetHashCode() => Value.GetHashCode();
+    public override int GetHashCode() => Value.GetHashCode();
 
-    public sealed override string? ToString() => Value.ToString();
+    public override string? ToString() => Value.ToString();
 }
